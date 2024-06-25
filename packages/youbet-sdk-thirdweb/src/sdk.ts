@@ -3,12 +3,21 @@ import { Contract } from './contract';
 import { GoalInfo } from './types';
 import ABI from './lib/abi/bet.json';
 
+const DefaultOptions = {
+  contractAddress: '0x902e2f3179aa959137fdc823754555b10c40f5b1',
+  abi: ABI,
+  providerUrl: 'https://cloudflare-eth.com'
+}
+
 export class SDK {
   private contract: Contract;
 
-  constructor(contractAddress: string, abi: any, providerUrl: string) {
+  constructor(options: { contractAddress?: string, abi?: any, providerUrl?: string } = {}) {
+    const { contractAddress, abi, providerUrl } = { ...DefaultOptions, ...options };
+debugger;
+
     const provider = new ethers.JsonRpcProvider(providerUrl);
-    this.contract = new Contract(contractAddress, abi || ABI, provider);
+    this.contract = new Contract(contractAddress, abi, provider);
   }
 
   async claimStake(goalId: number): Promise<void> {

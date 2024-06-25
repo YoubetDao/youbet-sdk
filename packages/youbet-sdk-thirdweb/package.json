@@ -1,0 +1,31 @@
+{
+  "name": "youbet-sdk",
+  "version": "0.0.1",
+  "description": "You bet! Awesome SDK it it.",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
+    "test": "jest",
+    "clean": "rm -rf dist build package",
+    "ts-node": "ts-node",
+    "docs": "typedoc --entryPoints src/main.ts",
+    "build": "tsc -p tsconfig.json",
+    "build-watch": "tsc -p tsconfig.json --watch",
+    "build-all": "yarn clean && yarn build",
+    "pub": "yarn build-all && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youbetdao/youbet-sdk.git"
+  },
+  "author": "youbetdao@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "ethers": "^6.13.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "typescript": "^5.5.2"
+  }
+}

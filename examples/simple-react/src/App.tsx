@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css'
+import SDK from 'youbet-sdk'
+
+const sdk = new SDK({ providerUrl: 'https://rpc.sepolia.linea.build' });
+
+function Punch() {
+  const [isPunched, setIsPunched] = useState(false)
+
+  const handlePunch = () => {
+    // Perform punch logic here
+    // Call an API or update a database to mark the punch
+    // Set isPunched to true if the punch is successful
+    setIsPunched(true)
+  }
+  return (<>
+    <button onClick={handlePunch} disabled={isPunched}>
+      {isPunched ? '已打卡' : '打卡'}
+    </button>
+  </>)
+}
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isHydrated) return
+    sdk.getContractOwner().then((goals) => {
+      console.log(goals)
+    })
+  }, [isHydrated])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <Punch />
+      <Punch />
+      <Punch />
+      <Punch />
+      <Punch />
+      <Punch />
+      <Punch />
+    </div>
   )
 }
+
 
 export default App
