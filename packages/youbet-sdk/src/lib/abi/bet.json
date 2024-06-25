@@ -1,0 +1,465 @@
+[
+  {
+    "type": "constructor",
+    "name": "",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "DebugLog",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "msgValue",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "requiredStake",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GoalCreated",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "id",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "string",
+        "name": "name",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "type": "string",
+        "name": "description",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "type": "uint256",
+        "name": "requiredStake",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "taskCount",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint8",
+        "name": "goalType",
+        "indexed": false,
+        "internalType": "enum learn.GoalType"
+      },
+      {
+        "type": "address",
+        "name": "creator",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GoalSettled",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "id",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GoalUnlocked",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "id",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "stakeAmount",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "StakeClaimed",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "id",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "stakeAmount",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TaskConfirmed",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "id",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "user",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "type": "uint256",
+        "name": "taskIndex",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "anonymous": false
+  },
+  {
+    "type": "function",
+    "name": "_createGoal",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_name",
+        "internalType": "string"
+      },
+      {
+        "type": "string",
+        "name": "_description",
+        "internalType": "string"
+      },
+      {
+        "type": "uint256",
+        "name": "_requiredStake",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "_taskCount",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint8",
+        "name": "_goalType",
+        "internalType": "enum learn.GoalType"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "claimStake",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "_goalId",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "confirmTaskCompletion",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "_goalId",
+        "internalType": "uint256"
+      },
+      {
+        "type": "address",
+        "name": "_user",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "contractOwner",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "address",
+        "name": "",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "createGoal",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_name",
+        "internalType": "string"
+      },
+      {
+        "type": "string",
+        "name": "_description",
+        "internalType": "string"
+      },
+      {
+        "type": "uint256",
+        "name": "_requiredStake",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "_taskCount",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createGoalSolo",
+    "inputs": [
+      {
+        "type": "string",
+        "name": "_name",
+        "internalType": "string"
+      },
+      {
+        "type": "string",
+        "name": "_description",
+        "internalType": "string"
+      },
+      {
+        "type": "uint256",
+        "name": "_requiredStake",
+        "internalType": "uint256"
+      },
+      {
+        "type": "uint256",
+        "name": "_taskCount",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getAllGoals",
+    "inputs": [],
+    "outputs": [
+      {
+        "type": "tuple[]",
+        "name": "",
+        "components": [
+          {
+            "type": "uint256",
+            "name": "id",
+            "internalType": "uint256"
+          },
+          {
+            "type": "string",
+            "name": "name",
+            "internalType": "string"
+          },
+          {
+            "type": "string",
+            "name": "description",
+            "internalType": "string"
+          },
+          {
+            "type": "uint256",
+            "name": "requiredStake",
+            "internalType": "uint256"
+          },
+          {
+            "type": "address",
+            "name": "creator",
+            "internalType": "address"
+          },
+          {
+            "type": "bool",
+            "name": "completed",
+            "internalType": "bool"
+          },
+          {
+            "type": "address[]",
+            "name": "participants",
+            "internalType": "address[]"
+          },
+          {
+            "type": "uint8",
+            "name": "goalType",
+            "internalType": "enum learn.GoalType"
+          }
+        ],
+        "internalType": "struct learn.GoalInfo[]"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getGoalDetails",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "_goalId",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "tuple",
+        "name": "",
+        "components": [
+          {
+            "type": "uint256",
+            "name": "id",
+            "internalType": "uint256"
+          },
+          {
+            "type": "string",
+            "name": "name",
+            "internalType": "string"
+          },
+          {
+            "type": "string",
+            "name": "description",
+            "internalType": "string"
+          },
+          {
+            "type": "uint256",
+            "name": "requiredStake",
+            "internalType": "uint256"
+          },
+          {
+            "type": "address",
+            "name": "creator",
+            "internalType": "address"
+          },
+          {
+            "type": "bool",
+            "name": "completed",
+            "internalType": "bool"
+          },
+          {
+            "type": "address[]",
+            "name": "participants",
+            "internalType": "address[]"
+          },
+          {
+            "type": "uint8",
+            "name": "goalType",
+            "internalType": "enum learn.GoalType"
+          }
+        ],
+        "internalType": "struct learn.GoalInfo"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getUserGoals",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "_user",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "uint256[]",
+        "name": "",
+        "internalType": "uint256[]"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "settleGoal",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "_goalId",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "stakeAndUnlockGoal",
+    "inputs": [
+      {
+        "type": "uint256",
+        "name": "_goalId",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
+  }
+]
