@@ -1,60 +1,76 @@
-import { ethers } from 'ethers';
-import { Contract } from './contract';
-import { GoalInfo } from './types';
-import ABI from './lib/abi/bet.json';
 
-const DefaultOptions = {
-  contractAddress: '0x902e2f3179aa959137fdc823754555b10c40f5b1',
-  abi: ABI,
-  providerUrl: 'https://rpc.linea.build'
+import ABI from './lib/abi/bet.json';
+import { ClientModule } from './modules/clientModule';
+import { ContractModule } from './modules/contractModule';
+
+export enum NetworkType {
+  Mainnet,
+  Testnet,
+}
+
+export type SdkCtorOptions = {
+  privateKey?: string;
+  networkType?: NetworkType;
+}
+
+export type SdkOptions = {
+  privateKey?: string;
+  networkOptions: NetworkOptions;
+}
+
+export type NetworkOptions = {
+  contractAddress: string;
+  rpcUrl: string;
+  chainId: number;
+  abi: any;
 }
 
 export class SDK {
-  private contract: Contract;
+  private _sdkOptions: SdkOptions;
+  private _client: ClientModule;
+  private _contract: ContractModule;
 
-  constructor(options: { contractAddress?: string, abi?: any, providerUrl?: string } = {}) {
-    const { contractAddress, abi, providerUrl } = { ...DefaultOptions, ...options };
-    const provider = new ethers.JsonRpcProvider(providerUrl);
-    this.contract = new Contract(contractAddress, abi, provider);
+  constructor(options?: SdkCtorOptions) {
+    const { networkType } = { ...options };
+
+    const mainnetOptions = {
+      contractAddress: '0x902e2f3179aa959137fdc823754555b10c40f5b1',
+      rpcUrl: 'https://rpc.linea.build',
+      chainId: 59144,
+      abi: ABI
+    }
+
+    const testnetOptions = {
+      contractAddress: '0x902e2f3179aa959137fdc823754555b10c40f5b1',
+      rpcUrl: 'https://rpc.sepolia.linea.build',
+      chainId: 59141,
+      abi: ABI
+    }
+
+    let networkOptions = mainnetOptions
+
+    if (networkType === NetworkType.Testnet) {
+      networkOptions = testnetOptions
+    }
+
+    this._sdkOptions = {
+      privateKey: options?.privateKey,
+      networkOptions
+    }
+
+    this._client = new ClientModule(this);
+    this._contract = new ContractModule(this);
   }
 
-  async claimStake(goalId: number): Promise<void> {
-    return await this.contract.claimStake(goalId);
+  get sdkOptions() {
+    return this._sdkOptions
   }
 
-  async confirmTaskCompletion(goalId: number, user: string): Promise<void> {
-    return await this.contract.confirmTaskCompletion(goalId, user);
+  get client() {
+    return this._client
   }
 
-  async getContractOwner(): Promise<string> {
-    return await this.contract.getContractOwner();
-  }
-
-  async createGoal(name: string, description: string, requiredStake: number, taskCount: number): Promise<void> {
-    return await this.contract.createGoal(name, description, requiredStake, taskCount);
-  }
-
-  async createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number): Promise<void> {
-    return await this.contract.createGoalSolo(name, description, requiredStake, taskCount);
-  }
-
-  async getAllGoals(): Promise<GoalInfo[]> {
-    return await this.contract.getAllGoals();
-  }
-
-  async getGoalDetails(goalId: number): Promise<GoalInfo> {
-    return await this.contract.getGoalDetails(goalId);
-  }
-
-  async getUserGoals(user: string): Promise<number[]> {
-    return await this.contract.getUserGoals(user);
-  }
-
-  async settleGoal(goalId: number): Promise<void> {
-    return await this.contract.settleGoal(goalId);
-  }
-
-  async stakeAndUnlockGoal(goalId: number, value: string): Promise<void> {
-    return await this.contract.stakeAndUnlockGoal(goalId, value);
+  get contract() {
+    return this._contract
   }
 }

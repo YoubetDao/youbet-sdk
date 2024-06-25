@@ -1,142 +1,112 @@
-# youbet-sdk
+## Getting Started
 
-## Introduction
-
-This SDK allows you to interact with a smart contract deployed on the Ethereum blockchain. It provides various methods to manage goals, including creating goals, staking, confirming task completion, and more.
-
-## Installation
-
-First, you need to install the required dependencies. Make sure you have Node.js and npm installed.
+To use this SDK, you can install it in your project by using the following command:
 
 ```bash
-npm install ethers
+pnpm add youbet-sdk
 ```
 
-## Usage
+## SDK Initialization
 
-### Importing the SDK
-
-To use the SDK, import it into your project along with any other necessary dependencies.
+You can initialize the SDK as shown below:
 
 ```javascript
-import { SDK } from 'youbet-sdk';
+import { SDK, NetworkType } from 'youbet-sdk';
+
+const sdk = new SDK({
+  privateKey: 'your-private-key', // optional
+  networkType: NetworkType.Mainnet // or NetworkType.Testnet
+});
 ```
 
-### Initializing the SDK
+## Client Module
 
-Create an instance of the SDK by providing the contract address, ABI (optional), and the provider URL.
+The client module provides methods for querying contract data. Here are some methods you can use:
+
+### `getContractOwner()`
+
+This method returns the owner of the contract.
 
 ```javascript
-const contractAddress = 'YOUR_CONTRACT_ADDRESS';
-const providerUrl = 'YOUR_PROVIDER_URL';
-const sdk = new SDK(contractAddress, null, providerUrl);
+const owner = await sdk.client.getContractOwner();
 ```
 
-### Methods
+### `getAllGoals()`
 
-#### claimStake(goalId: number): Promise<void>
-
-Claims the stake for a specific goal.
+This method returns all the goals in the contract.
 
 ```javascript
-await sdk.claimStake(1);
+const goals = await sdk.client.getAllGoals();
 ```
 
-#### confirmTaskCompletion(goalId: number, user: string): Promise<void>
+### `getGoalDetails(goalId: number)`
 
-Confirms the completion of a task for a specific goal by a user.
+This method returns the details of a specific goal.
 
 ```javascript
-await sdk.confirmTaskCompletion(1, '0xUserAddress');
+const goalDetails = await sdk.client.getGoalDetails(goalId);
 ```
 
-#### getContractOwner(): Promise<string>
+### `getUserGoals(user: string)`
 
-Returns the owner of the contract.
+This method returns all the goals of a specific user.
 
 ```javascript
-const owner = await sdk.getContractOwner();
-console.log(owner);
+const userGoals = await sdk.client.getUserGoals(userAddress);
 ```
 
-#### createGoal(name: string, description: string, requiredStake: number, taskCount: number): Promise<void>
+## Contract Module
 
-Creates a new goal.
+The contract module provides methods for interacting with the contract. Here are some methods you can use:
+
+### `claimStake(goalId: number)`
+
+This method allows a user to claim their stake for a specific goal.
 
 ```javascript
-await sdk.createGoal('Goal Name', 'Goal Description', 100, 5);
+await sdk.contract.claimStake(goalId);
 ```
 
-#### createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number): Promise<void>
+### `confirmTaskCompletion(goalId: number, user: string)`
 
-Creates a new solo goal.
+This method allows a user to confirm the completion of a task for a specific goal.
 
 ```javascript
-await sdk.createGoalSolo('Solo Goal Name', 'Solo Goal Description', 100, 5);
+await sdk.contract.confirmTaskCompletion(goalId, userAddress);
 ```
 
-#### getAllGoals(): Promise<GoalInfo[]>
+### `createGoal(name: string, description: string, requiredStake: number, taskCount: number)`
 
-Retrieves all goals.
+This method allows a user to create a new goal.
 
 ```javascript
-const goals = await sdk.getAllGoals();
-console.log(goals);
+await sdk.contract.createGoal(name, description, requiredStake, taskCount);
 ```
 
-#### getGoalDetails(goalId: number): Promise<GoalInfo>
+### `createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number)`
 
-Retrieves details of a specific goal.
+This method allows a user to create a new solo goal.
 
 ```javascript
-const goal = await sdk.getGoalDetails(1);
-console.log(goal);
+await sdk.contract.createGoalSolo(name, description, requiredStake, taskCount);
 ```
 
-#### getUserGoals(user: string): Promise<number[]>
+### `settleGoal(goalId: number)`
 
-Retrieves the goals associated with a specific user.
+This method allows a user to settle a goal.
 
 ```javascript
-const userGoals = await sdk.getUserGoals('0xUserAddress');
-console.log(userGoals);
+await sdk.contract.settleGoal(goalId);
 ```
 
-#### settleGoal(goalId: number): Promise<void>
+### `stakeAndUnlockGoal(goalId: number, value: string)`
 
-Settles a specific goal.
+This method allows a user to stake and unlock a specific goal.
 
 ```javascript
-await sdk.settleGoal(1);
+await sdk.contract.stakeAndUnlockGoal(goalId, value);
 ```
 
-#### stakeAndUnlockGoal(goalId: number, value: string): Promise<void>
+## Learn More
 
-Stakes and unlocks a specific goal.
-
-```javascript
-await sdk.stakeAndUnlockGoal(1, '1000000000000000000'); // Value in wei
-```
-
-## ABI
-
-If you have a custom ABI, you can pass it to the SDK during initialization. Otherwise, the default ABI provided in `./lib/abi/bet.json` will be used.
-
-```javascript
-const customAbi = [ /* Your custom ABI */ ];
-const sdk = new SDK(contractAddress, customAbi, providerUrl);
-```
-
-## Provider URL
-
-The provider URL is the endpoint of your Ethereum node. You can use providers like Infura, Alchemy, or your own Ethereum node.
-
-```javascript
-const providerUrl = 'https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID';
-```
-
-## Conclusion
-
-This SDK provides a convenient way to interact with the smart contract and manage goals. Ensure you handle errors and edge cases appropriately in your implementation.
-
-For further details on each method and additional functionality, refer to the code comments and the smart contract documentation.
+You can learn more about this SDK by checking out the source code or reaching out to the developers.

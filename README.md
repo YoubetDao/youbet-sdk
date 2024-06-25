@@ -2,7 +2,7 @@
 
 ## SDK
 
-[docs](./packages/youbet-sdk/README.md)
+[sdk docs](./packages/youbet-sdk/README.md)
 
 ## EXAMPLES
 
