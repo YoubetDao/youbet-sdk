@@ -1,7 +1,7 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.1",
-  "description": "You bet! Awesome SDK it it.",
+  "version": "0.0.3",
+  "description": "I made a typo. Awesome SDK it is.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "scripts": {

@@ -21,9 +21,9 @@ const sdk = new SDK({
 
 ## Client Module
 
-The client module provides methods for querying contract data. Here are some methods you can use:
+The Client module provides methods for querying contract data. Here are some methods you can use:
 
-### `getContractOwner()`
+### `getContractOwner(): string`
 
 This method returns the owner of the contract.
 
@@ -31,15 +31,15 @@ This method returns the owner of the contract.
 const owner = await sdk.client.getContractOwner();
 ```
 
-### `getAllGoals()`
+### `getAllGoals(): GoalInfo[]`
 
-This method returns all the goals in the contract.
+This method returns all goals in the contract.
 
 ```javascript
 const goals = await sdk.client.getAllGoals();
 ```
 
-### `getGoalDetails(goalId: number)`
+### `getGoalDetails(goalId: number): GoalInfo`
 
 This method returns the details of a specific goal.
 
@@ -47,9 +47,9 @@ This method returns the details of a specific goal.
 const goalDetails = await sdk.client.getGoalDetails(goalId);
 ```
 
-### `getUserGoals(user: string)`
+### `getUserGoals(user: string): string[]`
 
-This method returns all the goals of a specific user.
+This method returns all goals of a specific user.
 
 ```javascript
 const userGoals = await sdk.client.getUserGoals(userAddress);
