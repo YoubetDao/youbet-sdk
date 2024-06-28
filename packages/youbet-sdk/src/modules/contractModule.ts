@@ -1,5 +1,7 @@
-import { ethers } from 'ethers';
+import { ethers, ContractTransactionResponse } from 'ethers';
 import { SDK } from '../sdk';
+import { formatResult } from "../lib/utils";
+import { GoalInfo } from '../types';
 
 export class ContractModule {
   protected _sdk: SDK;
@@ -34,16 +36,27 @@ export class ContractModule {
     }
   }
 
-  async createGoal(name: string, description: string, requiredStake: number, taskCount: number): Promise<void> {
+  async createGoal(name: string, description: string, requiredStake: number, taskCount: number): Promise<GoalInfo | undefined> {
     const contract = await this._getContract();
-    const tx = await contract.createGoal(name, description, requiredStake, taskCount);
-    await tx.wait();
+    const tx: ContractTransactionResponse = await contract.createGoal(name, description, requiredStake, taskCount);
+    const receipt = await tx.wait();
+    if (!receipt) return
+    const eventGoalCreated = receipt.logs.find((log) => 'eventName' in log && log.eventName === 'GoalCreated')
+    if (!eventGoalCreated || !('args' in eventGoalCreated)) return
+    const result = formatResult<GoalInfo>(eventGoalCreated.args)
+    return result
   }
 
-  async createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number): Promise<void> {
+  async createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number): Promise<GoalInfo | undefined> {
     const contract = await this._getContract();
-    const tx = await contract.createGoalSolo(name, description, requiredStake, taskCount);
+    const tx: ContractTransactionResponse = await contract.createGoalSolo(name, description, requiredStake, taskCount);
     await tx.wait();
+    const receipt = await tx.wait();
+    if (!receipt) return
+    const eventGoalCreated = receipt.logs.find((log) => 'eventName' in log && log.eventName === 'GoalCreated')
+    if (!eventGoalCreated || !('args' in eventGoalCreated)) return
+    const result = formatResult<GoalInfo>(eventGoalCreated.args)
+    return result
   }
 
   async claimStake(goalId: number): Promise<void> {

@@ -15,7 +15,8 @@ export function CreateGoal() {
     if (description === '') {
       alert('description not found')
     }
-    await sdk.contract.createGoal(name, description, requiredStake, taskCount)
+    const goldInfo = await sdk.contract.createGoal(name, description, requiredStake, taskCount)
+    console.log(goldInfo)
   }
 
   return (<>

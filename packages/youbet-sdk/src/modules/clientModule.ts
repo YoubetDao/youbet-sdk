@@ -1,23 +1,13 @@
 import { ethers, BaseContractMethod, BaseContract, Result } from "ethers";
 import { SDK } from "../sdk";
 import { formatResult } from "../lib/utils";
+import { GoalInfo } from "../types";
 
 export interface ViewContract extends BaseContract {
   contractOwner: BaseContractMethod<[], any, string>;
   getAllGoals: BaseContractMethod<[], any, Result>;
   getGoalDetails: BaseContractMethod<[number], any, Result>;
   getUserGoals: BaseContractMethod<[string], any, Result>;
-}
-
-export interface GoalInfo {
-  id: number;
-  name: string;
-  description: string;
-  requiredStake: number;
-  creator: string;
-  completed: boolean;
-  participants: string[];
-  goalType: number;
 }
 
 export class ClientModule {

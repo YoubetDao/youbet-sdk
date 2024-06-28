@@ -75,20 +75,20 @@ This method allows a user to confirm the completion of a task for a specific goa
 await sdk.contract.confirmTaskCompletion(goalId, userAddress);
 ```
 
-### `createGoal(name: string, description: string, requiredStake: number, taskCount: number)`
+### `createGoal(name: string, description: string, requiredStake: number, taskCount: number): GoalInfo | undefined`
 
 This method allows a user to create a new goal.
 
 ```javascript
-await sdk.contract.createGoal(name, description, requiredStake, taskCount);
+const goalInfo = await sdk.contract.createGoal(name, description, requiredStake, taskCount);
 ```
 
-### `createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number)`
+### `createGoalSolo(name: string, description: string, requiredStake: number, taskCount: number): GoalInfo | undefined`
 
 This method allows a user to create a new solo goal.
 
 ```javascript
-await sdk.contract.createGoalSolo(name, description, requiredStake, taskCount);
+const goalInfo = await sdk.contract.createGoalSolo(name, description, requiredStake, taskCount);
 ```
 
 ### `settleGoal(goalId: number)`
