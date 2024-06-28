@@ -1,3 +1,11 @@
 {
-  "private": true
+  "private": true,
+  "scripts": {
+    "build:sdk": "pnpm --filter youbet-sdk build",
+    "build:simple-react": "pnpm --filter simple-react build",
+    "build-all:simple-react": "pnpm build:sdk && pnpm build:simple-react"
+  },
+  "devDependencies": {
+    "inquirer": "^9.3.1"
+  }
 }

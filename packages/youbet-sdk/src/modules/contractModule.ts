@@ -34,18 +34,6 @@ export class ContractModule {
     }
   }
 
-  async claimStake(goalId: number): Promise<void> {
-    const contract = await this._getContract();
-    const tx = await contract.claimStake(goalId);
-    await tx.wait();
-  }
-
-  async confirmTaskCompletion(goalId: number, user: string): Promise<void> {
-    const contract = await this._getContract();
-    const tx = await contract.confirmTaskCompletion(goalId, user);
-    await tx.wait();
-  }
-
   async createGoal(name: string, description: string, requiredStake: number, taskCount: number): Promise<void> {
     const contract = await this._getContract();
     const tx = await contract.createGoal(name, description, requiredStake, taskCount);
@@ -58,15 +46,27 @@ export class ContractModule {
     await tx.wait();
   }
 
-  async settleGoal(goalId: number): Promise<void> {
+  async claimStake(goalId: number): Promise<void> {
     const contract = await this._getContract();
-    const tx = await contract.settleGoal(goalId);
+    const tx = await contract.claimStake(goalId);
     await tx.wait();
   }
 
-  async stakeAndUnlockGoal(goalId: number, value: string): Promise<void> {
+  async stakeAndUnlockGoal(goalId: number): Promise<void> {
     const contract = await this._getContract();
-    const tx = await contract.stakeAndUnlockGoal(goalId, { value: ethers.parseEther(value) });
+    const tx = await contract.stakeAndUnlockGoal(goalId);
+    await tx.wait();
+  }
+
+  async confirmTaskCompletion(goalId: number, user: string): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.confirmTaskCompletion(goalId, user);
+    await tx.wait();
+  }
+
+  async settleGoal(goalId: number): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.settleGoal(goalId);
     await tx.wait();
   }
 }

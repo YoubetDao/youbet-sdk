@@ -1,54 +1,31 @@
-import { useEffect, useState } from 'react'
 import './App.css'
 
-import { SDK, NetworkType } from 'youbet-sdk'
-const sdk = new SDK({ networkType: NetworkType.Testnet });
+import { ContractOwner } from './components/sections/ContractOwner'
+import { AllGoals } from './components/sections/AllGoals'
+import { GoalDetails } from './components/sections/GoalDetails'
+import { UserGoals } from './components/sections/UserGoals'
 
-function Punch() {
-  const [isPunched, setIsPunched] = useState(false)
-
-  const handlePunch = () => {
-    setIsPunched(true)
-  }
-  return (<>
-    <button onClick={handlePunch} disabled={isPunched}>
-      {isPunched ? '已打卡' : '打卡'}
-    </button>
-  </>)
-}
+import { CreateGoal } from './components/sections/CreateGoal'
+import { CreateGoalSolo } from './components/sections/CreateGoalSolo'
+import { ClaimStake } from './components/sections/ClaimStake'
+import { StakeAndUnlockGoal } from './components/sections/StakeAndUnlockGoal'
+import { ConfirmTaskCompletion } from './components/sections/ConfirmTaskCompletion'
+import { SettleGoal } from './components/sections/SettleGoal'
 
 function App() {
-  const [isHydrated, setIsHydrated] = useState(false)
-
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
-
-  useEffect(() => {
-    if (!isHydrated) return
-    sdk.client.getContractOwner().then((goals) => {
-      console.log(goals)
-    })
-  }, [isHydrated])
-
-  const createGoal = () => {
-    sdk.contract.createGoal('Simple React Test', 'test for simple react', 100, 7)
-  }
-
   return (
-    <div>
-      <div>
-        <button onClick={createGoal}>Create Goal</button>
-      </div>
-      <div>
-        <Punch />
-        <Punch />
-        <Punch />
-        <Punch />
-        <Punch />
-        <Punch />
-        <Punch />
-      </div>
+    <div className='main'>
+      <ContractOwner />
+      <AllGoals />
+      <GoalDetails />
+      <UserGoals />
+
+      <CreateGoal />
+      <CreateGoalSolo />
+      <ClaimStake />
+      <StakeAndUnlockGoal />
+      <ConfirmTaskCompletion />
+      <SettleGoal />
     </div>
   )
 }

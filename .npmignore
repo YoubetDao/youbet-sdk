@@ -1,9 +1,9 @@
-node_modules
+node_modules/
 *.log
 
 pnpm-lock.yaml
 yarn.lock
 package-lock.json
 
-src
-examples
+src/
+examples/
