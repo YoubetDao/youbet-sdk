@@ -6,7 +6,7 @@ export function StakeAndUnlockGoal() {
   const [goalId, setGoalId] = useState(0)
 
   const tryMe = async () => {
-    await sdk.contract.stakeAndUnlockGoal(goalId, '10', 'wei')
+    await sdk.contract.stakeAndUnlockGoal(goalId)
   }
 
   return (<>
