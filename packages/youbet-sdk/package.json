@@ -1,6 +1,6 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "I made a typo. Awesome SDK it is.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",

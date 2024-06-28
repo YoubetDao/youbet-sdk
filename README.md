@@ -7,3 +7,6 @@
 ## EXAMPLES
 
 - [Simple React](./examples/simple-react)
+
+## QUICK START
+[Quick Start](./QUICKSTART.md)

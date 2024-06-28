@@ -24,8 +24,12 @@ export function formatResult<T = any>(result: Result, toArray?: boolean): T {
     const values: Record<string, any> = {}
     const entries = Object.entries(object)
     if (entries.length === 0) {
-      debugger;
       return [] as T
+    }
+    if (entries.length === 1) {
+      if (entries[0][0] === "_") {
+        return [entries[0][1]] as T
+      }
     }
 
     for (const [name, value] of entries) {
