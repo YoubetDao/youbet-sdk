@@ -99,12 +99,12 @@ This method allows a user to settle a goal.
 await sdk.contract.settleGoal(goalId);
 ```
 
-### `stakeAndUnlockGoal(goalId: number, value: string)`
+### `stakeAndUnlockGoal(goalId: number)`
 
 This method allows a user to stake and unlock a specific goal.
 
 ```javascript
-await sdk.contract.stakeAndUnlockGoal(goalId, value);
+await sdk.contract.stakeAndUnlockGoal(goalId);
 ```
 
 ## Learn More
