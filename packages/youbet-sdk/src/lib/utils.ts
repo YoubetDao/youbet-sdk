@@ -22,7 +22,13 @@ export function formatResult<T = any>(result: Result, toArray?: boolean): T {
   try {
     const object = result.toObject()
     const values: Record<string, any> = {}
-    for (const [name, value] of Object.entries(object)) {
+    const entries = Object.entries(object)
+    if (entries.length === 0) {
+      debugger;
+      return [] as T
+    }
+
+    for (const [name, value] of entries) {
       values[name] = formatter(value)
     }
     return values as T

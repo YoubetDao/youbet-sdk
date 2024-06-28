@@ -1,19 +1,14 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "I made a typo. Awesome SDK it is.",
   "main": "./dist/main.js",
   "types": "./dist/main.d.ts",
   "scripts": {
-    "lint": "eslint src/ --ext .js,.jsx,.ts,.tsx",
-    "test": "jest",
     "clean": "rm -rf dist build package",
-    "ts-node": "ts-node",
-    "docs": "typedoc --entryPoints src/main.ts",
     "build": "tsc -p tsconfig.json",
     "build-watch": "tsc -p tsconfig.json --watch",
-    "build-all": "yarn clean && yarn build",
-    "pub": "yarn build-all && npm publish"
+    "build-all": "pnpm clean && pnpm build"
   },
   "repository": {
     "type": "git",
