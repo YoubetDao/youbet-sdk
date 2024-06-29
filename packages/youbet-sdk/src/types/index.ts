@@ -13,6 +13,6 @@ export interface GoalInfo {
   requiredStake: number;
   creator: string;
   completed: boolean;
-  participants: string[];
+  participants?: string[];
   goalType: number;
 }

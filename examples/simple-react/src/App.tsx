@@ -11,7 +11,7 @@ import { ClaimStake } from './components/sections/ClaimStake'
 import { StakeAndUnlockGoal } from './components/sections/StakeAndUnlockGoal'
 import { ConfirmTaskCompletion } from './components/sections/ConfirmTaskCompletion'
 import { SettleGoal } from './components/sections/SettleGoal'
-import { GoalCreated } from './components/sections/GoalCreated'
+// import { GoalCreated } from './components/sections/GoalCreated'
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
         <ConfirmTaskCompletion />
         <SettleGoal />
 
-        <GoalCreated />
+        {/* <GoalCreated /> */}
       </main>
       <footer className="footer">
         Powered By <a href="https://youbetdao.github.io/" target="_blank" rel="noreferrer noopener">YouBet</a>
