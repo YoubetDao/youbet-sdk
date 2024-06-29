@@ -5,8 +5,29 @@
   text-align: center;
 }
 
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 10px 28px;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.header .logo {
+  margin-right: 16px;
+  border-radius: 6px;
+}
 .main {
   width: 100%;
+}
+.footer {
+  margin-top: 48px;
+  border-top: 1px solid #ccc;
+  padding: 16px 0;
 }
 
 .section {

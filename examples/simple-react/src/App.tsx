@@ -14,19 +14,28 @@ import { SettleGoal } from './components/sections/SettleGoal'
 
 function App() {
   return (
-    <div className='main'>
-      <ContractOwner />
-      <AllGoals />
-      <GoalDetails />
-      <UserGoals />
+    <>
+      <header className="header">
+        <img className="logo" src="/logo.png" alt="logo" width={28} height={28} />
+        <span>YouBet SDK</span>
+      </header>
+      <main className="main">
+        <ContractOwner />
+        <AllGoals />
+        <GoalDetails />
+        <UserGoals />
 
-      <CreateGoal />
-      <CreateGoalSolo />
-      <ClaimStake />
-      <StakeAndUnlockGoal />
-      <ConfirmTaskCompletion />
-      <SettleGoal />
-    </div>
+        <CreateGoal />
+        <CreateGoalSolo />
+        <ClaimStake />
+        <StakeAndUnlockGoal />
+        <ConfirmTaskCompletion />
+        <SettleGoal />
+      </main>
+      <footer className="footer">
+        Powered By YouBet
+      </footer>
+    </>
   )
 }
 
