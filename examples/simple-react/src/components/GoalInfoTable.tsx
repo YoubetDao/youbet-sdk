@@ -35,10 +35,10 @@ export function GoalInfoTable({ data }: { data: GoalInfo }) {
           <td>completed</td>
           <td>{data.completed}</td>
         </tr>
-        <tr>
+        {data.participants && <tr>
           <td>participants</td>
           <td>{data.participants.join(', ')}</td>
-        </tr>
+        </tr>}
         <tr>
           <td>goalType</td>
           <td>{data.goalType}</td>

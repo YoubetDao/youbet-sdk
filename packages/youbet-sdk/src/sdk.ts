@@ -2,6 +2,7 @@
 import ABI from './lib/abi/bet.json';
 import { ClientModule } from './modules/clientModule';
 import { ContractModule } from './modules/contractModule';
+import { EventModule } from './modules/eventModule';
 
 export enum NetworkType {
   Mainnet,
@@ -29,6 +30,7 @@ export class SDK {
   private _sdkOptions: SdkOptions;
   private _client: ClientModule;
   private _contract: ContractModule;
+  private _event: EventModule;
 
   constructor(options?: SdkCtorOptions) {
     const { networkType } = { ...options };
@@ -60,6 +62,7 @@ export class SDK {
 
     this._client = new ClientModule(this);
     this._contract = new ContractModule(this);
+    this._event = new EventModule(this);
   }
 
   get sdkOptions() {
@@ -72,5 +75,9 @@ export class SDK {
 
   get contract() {
     return this._contract
+  }
+
+  get event() {
+    return this._event
   }
 }

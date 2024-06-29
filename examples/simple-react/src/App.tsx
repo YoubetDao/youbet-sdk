@@ -11,6 +11,7 @@ import { ClaimStake } from './components/sections/ClaimStake'
 import { StakeAndUnlockGoal } from './components/sections/StakeAndUnlockGoal'
 import { ConfirmTaskCompletion } from './components/sections/ConfirmTaskCompletion'
 import { SettleGoal } from './components/sections/SettleGoal'
+import { GoalCreated } from './components/sections/GoalCreated'
 
 function App() {
   return (
@@ -31,13 +32,14 @@ function App() {
         <StakeAndUnlockGoal />
         <ConfirmTaskCompletion />
         <SettleGoal />
+
+        <GoalCreated />
       </main>
       <footer className="footer">
-        Powered By YouBet
+        Powered By <a href="https://youbetdao.github.io/" target="_blank" rel="noreferrer noopener">YouBet</a>
       </footer>
     </>
   )
 }
-
 
 export default App
