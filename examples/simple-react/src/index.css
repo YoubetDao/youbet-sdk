@@ -71,11 +71,11 @@ td {
   border-bottom: 1px solid #333;
 }
 th {
-  text-align: left;
+  text-align: center;
   font-weight: 500;
 }
 td {
-  text-align: right;
+  text-align: left;
 }
 
 label {

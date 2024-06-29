@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sdk } from '../../lib/youbet-sdk'
 import { Section } from '../Section'
+import { Button } from '../Button'
 
 export function CreateGoal() {
   const [name, setName] = useState('Test Name')
@@ -38,7 +39,7 @@ export function CreateGoal() {
         <input value={taskCount} onChange={(e) => setTaskCount(Number(e.target.value))} />
       </div>
       <div>
-        <button onClick={tryMe}>Try Me!</button>
+        <Button onClick={tryMe}>Try Me!</Button>
       </div>
     </Section>
   </>)

@@ -3,6 +3,7 @@ import { sdk, GoalInfo } from '../../lib/youbet-sdk'
 
 import { Section } from "../Section"
 import { GoalInfoTable } from '../GoalInfoTable'
+import { Button } from "../Button"
 
 export function AllGoals() {
   const [value, setValue] = useState<GoalInfo[]>([])
@@ -16,7 +17,7 @@ export function AllGoals() {
   return (<>
     <Section title="All Goals">
       <div>
-        <button onClick={tryMe}>Try Me!</button>
+        <Button onClick={tryMe}>Try Me!</Button>
       </div>
       {value.map((data) => {
         return  <GoalInfoTable key={data.id} data={data} />

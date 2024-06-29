@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sdk } from '../../lib/youbet-sdk'
 import { Section } from '../Section'
+import { Button } from '../Button'
 
 export function ConfirmTaskCompletion() {
   const [goalId, setGoalId] = useState(0)
@@ -21,7 +22,7 @@ export function ConfirmTaskCompletion() {
         <input value={userAddress} onChange={(e) => setUserAddress(e.target.value)} />
       </div>
       <div>
-        <button onClick={tryMe}>Try Me!</button>
+        <Button onClick={tryMe}>Try Me!</Button>
       </div>
     </Section>
   </>)

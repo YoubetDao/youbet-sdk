@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { sdk } from '../../lib/youbet-sdk'
 import { Section } from '../Section'
+import { Button } from '../Button'
 
 export function SettleGoal() {
   const [goalId, setGoalId] = useState(0)
@@ -16,7 +17,7 @@ export function SettleGoal() {
         <input value={goalId} onChange={(e) => setGoalId(Number(e.target.value))} />
       </div>
       <div>
-        <button onClick={tryMe}>Try Me!</button>
+        <Button onClick={tryMe}>Try Me!</Button>
       </div>
     </Section>
   </>)

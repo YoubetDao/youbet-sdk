@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { sdk, GoalInfo } from '../../lib/youbet-sdk'
 import { Section } from '../Section'
 import { GoalInfoTable } from '../GoalInfoTable'
+import { Button } from '../Button'
 
 export function GoalDetails() {
   const [goalId, setGoalId] = useState(0)
@@ -20,7 +21,7 @@ export function GoalDetails() {
         <input value={goalId} onChange={(e) => setGoalId(Number(e.target.value))} />
       </div>
       <div>
-        <button onClick={tryMe}>Try Me!</button>
+        <Button onClick={tryMe}>Try Me!</Button>
       </div>
       {!!value && <div>
         <GoalInfoTable data={value} />
