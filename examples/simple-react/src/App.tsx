@@ -11,6 +11,12 @@ import { ClaimStake } from './components/sections/ClaimStake'
 import { StakeAndUnlockGoal } from './components/sections/StakeAndUnlockGoal'
 import { ConfirmTaskCompletion } from './components/sections/ConfirmTaskCompletion'
 import { SettleGoal } from './components/sections/SettleGoal'
+import { CreateTask } from './components/sections/CreateTask'
+import { LinkWallet } from './components/sections/LinkWallet'
+import { AllTasks } from './components/sections/AllTasks'
+import { ConfirmTask } from './components/sections/ConfirmTask'
+import { AllUnconfirmedTasks } from './components/sections/AllUnconfirmedTasks'
+import { UserPoints } from './components/sections/UserPoints'
 // import { GoalCreated } from './components/sections/GoalCreated'
 
 function App() {
@@ -33,6 +39,13 @@ function App() {
         <ConfirmTaskCompletion />
         <SettleGoal />
 
+        <AllTasks />
+        <AllUnconfirmedTasks />
+        <UserPoints />
+
+        <CreateTask />
+        <ConfirmTask />
+        <LinkWallet />
         {/* <GoalCreated /> */}
       </main>
       <footer className="footer">

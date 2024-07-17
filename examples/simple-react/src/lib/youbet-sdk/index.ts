@@ -1,5 +1,11 @@
-import { SDK, NetworkType, type GoalInfo, formatResult } from 'youbet-sdk'
+import {
+  SDK,
+  NetworkType,
+  type GoalInfo,
+  formatResult,
+  type Task,
+} from "youbet-sdk";
 
 export const sdk = new SDK({ networkType: NetworkType.Testnet });
 
-export { type GoalInfo, formatResult }
+export { type GoalInfo, type Task, formatResult };
