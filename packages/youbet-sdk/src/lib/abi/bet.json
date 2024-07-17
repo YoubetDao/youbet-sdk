@@ -1,201 +1,21 @@
 [
-  {
-    "type": "constructor",
-    "name": "",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "event",
-    "name": "DebugLog",
-    "inputs": [
-      {
-        "type": "uint256",
-        "name": "msgValue",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "uint256",
-        "name": "requiredStake",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "GoalCreated",
-    "inputs": [
-      {
-        "type": "uint256",
-        "name": "id",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "string",
-        "name": "name",
-        "indexed": false,
-        "internalType": "string"
-      },
-      {
-        "type": "string",
-        "name": "description",
-        "indexed": false,
-        "internalType": "string"
-      },
-      {
-        "type": "uint256",
-        "name": "requiredStake",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "uint256",
-        "name": "taskCount",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "uint8",
-        "name": "goalType",
-        "indexed": false,
-        "internalType": "enum learn.GoalType"
-      },
-      {
-        "type": "address",
-        "name": "creator",
-        "indexed": false,
-        "internalType": "address"
-      }
-    ],
-    "outputs": [],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "GoalSettled",
-    "inputs": [
-      {
-        "type": "uint256",
-        "name": "id",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "GoalUnlocked",
-    "inputs": [
-      {
-        "type": "uint256",
-        "name": "id",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "address",
-        "name": "user",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "type": "uint256",
-        "name": "stakeAmount",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "StakeClaimed",
-    "inputs": [
-      {
-        "type": "uint256",
-        "name": "id",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "address",
-        "name": "user",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "type": "uint256",
-        "name": "stakeAmount",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "anonymous": false
-  },
-  {
-    "type": "event",
-    "name": "TaskConfirmed",
-    "inputs": [
-      {
-        "type": "uint256",
-        "name": "id",
-        "indexed": false,
-        "internalType": "uint256"
-      },
-      {
-        "type": "address",
-        "name": "user",
-        "indexed": false,
-        "internalType": "address"
-      },
-      {
-        "type": "uint256",
-        "name": "taskIndex",
-        "indexed": false,
-        "internalType": "uint256"
-      }
-    ],
-    "outputs": [],
-    "anonymous": false
-  },
+  { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
   {
     "type": "function",
     "name": "_createGoal",
     "inputs": [
+      { "name": "_name", "type": "string", "internalType": "string" },
+      { "name": "_description", "type": "string", "internalType": "string" },
       {
-        "type": "string",
-        "name": "_name",
-        "internalType": "string"
-      },
-      {
-        "type": "string",
-        "name": "_description",
-        "internalType": "string"
-      },
-      {
-        "type": "uint256",
         "name": "_requiredStake",
-        "internalType": "uint256"
-      },
-      {
         "type": "uint256",
-        "name": "_taskCount",
         "internalType": "uint256"
       },
+      { "name": "_taskCount", "type": "uint256", "internalType": "uint256" },
       {
-        "type": "uint8",
         "name": "_goalType",
-        "internalType": "enum learn.GoalType"
+        "type": "uint8",
+        "internalType": "enum GoalType"
       }
     ],
     "outputs": [],
@@ -205,11 +25,17 @@
     "type": "function",
     "name": "claimStake",
     "inputs": [
-      {
-        "type": "uint256",
-        "name": "_goalId",
-        "internalType": "uint256"
-      }
+      { "name": "_goalId", "type": "uint256", "internalType": "uint256" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "confirmTask",
+    "inputs": [
+      { "name": "_taskId", "type": "uint256", "internalType": "uint256" },
+      { "name": "github", "type": "string", "internalType": "string" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -218,16 +44,8 @@
     "type": "function",
     "name": "confirmTaskCompletion",
     "inputs": [
-      {
-        "type": "uint256",
-        "name": "_goalId",
-        "internalType": "uint256"
-      },
-      {
-        "type": "address",
-        "name": "_user",
-        "internalType": "address"
-      }
+      { "name": "_goalId", "type": "uint256", "internalType": "uint256" },
+      { "name": "_user", "type": "address", "internalType": "address" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -236,39 +54,21 @@
     "type": "function",
     "name": "contractOwner",
     "inputs": [],
-    "outputs": [
-      {
-        "type": "address",
-        "name": "",
-        "internalType": "address"
-      }
-    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
     "stateMutability": "view"
   },
   {
     "type": "function",
     "name": "createGoal",
     "inputs": [
+      { "name": "_name", "type": "string", "internalType": "string" },
+      { "name": "_description", "type": "string", "internalType": "string" },
       {
-        "type": "string",
-        "name": "_name",
-        "internalType": "string"
-      },
-      {
-        "type": "string",
-        "name": "_description",
-        "internalType": "string"
-      },
-      {
-        "type": "uint256",
         "name": "_requiredStake",
+        "type": "uint256",
         "internalType": "uint256"
       },
-      {
-        "type": "uint256",
-        "name": "_taskCount",
-        "internalType": "uint256"
-      }
+      { "name": "_taskCount", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -277,27 +77,22 @@
     "type": "function",
     "name": "createGoalSolo",
     "inputs": [
+      { "name": "_name", "type": "string", "internalType": "string" },
+      { "name": "_description", "type": "string", "internalType": "string" },
       {
-        "type": "string",
-        "name": "_name",
-        "internalType": "string"
-      },
-      {
-        "type": "string",
-        "name": "_description",
-        "internalType": "string"
-      },
-      {
-        "type": "uint256",
         "name": "_requiredStake",
+        "type": "uint256",
         "internalType": "uint256"
       },
-      {
-        "type": "uint256",
-        "name": "_taskCount",
-        "internalType": "uint256"
-      }
+      { "name": "_taskCount", "type": "uint256", "internalType": "uint256" }
     ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createTask",
+    "inputs": [{ "name": "_sub", "type": "string", "internalType": "string" }],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
@@ -307,113 +102,133 @@
     "inputs": [],
     "outputs": [
       {
-        "type": "tuple[]",
         "name": "",
+        "type": "tuple[]",
+        "internalType": "struct GoalInfo[]",
         "components": [
+          { "name": "id", "type": "uint256", "internalType": "uint256" },
+          { "name": "name", "type": "string", "internalType": "string" },
           {
-            "type": "uint256",
-            "name": "id",
-            "internalType": "uint256"
-          },
-          {
-            "type": "string",
-            "name": "name",
-            "internalType": "string"
-          },
-          {
-            "type": "string",
             "name": "description",
+            "type": "string",
             "internalType": "string"
           },
           {
-            "type": "uint256",
             "name": "requiredStake",
+            "type": "uint256",
             "internalType": "uint256"
           },
+          { "name": "creator", "type": "address", "internalType": "address" },
+          { "name": "completed", "type": "bool", "internalType": "bool" },
           {
-            "type": "address",
-            "name": "creator",
-            "internalType": "address"
-          },
-          {
-            "type": "bool",
-            "name": "completed",
-            "internalType": "bool"
-          },
-          {
-            "type": "address[]",
             "name": "participants",
+            "type": "address[]",
             "internalType": "address[]"
           },
           {
-            "type": "uint8",
             "name": "goalType",
-            "internalType": "enum learn.GoalType"
+            "type": "uint8",
+            "internalType": "enum GoalType"
           }
-        ],
-        "internalType": "struct learn.GoalInfo[]"
+        ]
       }
     ],
     "stateMutability": "view"
   },
   {
     "type": "function",
+    "name": "getAllTasks",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct Task[]",
+        "components": [
+          { "name": "id", "type": "uint256", "internalType": "uint256" },
+          { "name": "sub", "type": "string", "internalType": "string" },
+          { "name": "completed", "type": "bool", "internalType": "bool" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getGithubByWallet",
+    "inputs": [
+      { "name": "_wallet", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "string", "internalType": "string" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "getGoalDetails",
     "inputs": [
-      {
-        "type": "uint256",
-        "name": "_goalId",
-        "internalType": "uint256"
-      }
+      { "name": "_goalId", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [
       {
-        "type": "tuple",
         "name": "",
+        "type": "tuple",
+        "internalType": "struct GoalInfo",
         "components": [
+          { "name": "id", "type": "uint256", "internalType": "uint256" },
+          { "name": "name", "type": "string", "internalType": "string" },
           {
-            "type": "uint256",
-            "name": "id",
-            "internalType": "uint256"
-          },
-          {
-            "type": "string",
-            "name": "name",
-            "internalType": "string"
-          },
-          {
-            "type": "string",
             "name": "description",
+            "type": "string",
             "internalType": "string"
           },
           {
-            "type": "uint256",
             "name": "requiredStake",
+            "type": "uint256",
             "internalType": "uint256"
           },
+          { "name": "creator", "type": "address", "internalType": "address" },
+          { "name": "completed", "type": "bool", "internalType": "bool" },
           {
-            "type": "address",
-            "name": "creator",
-            "internalType": "address"
-          },
-          {
-            "type": "bool",
-            "name": "completed",
-            "internalType": "bool"
-          },
-          {
-            "type": "address[]",
             "name": "participants",
+            "type": "address[]",
             "internalType": "address[]"
           },
           {
-            "type": "uint8",
             "name": "goalType",
-            "internalType": "enum learn.GoalType"
+            "type": "uint8",
+            "internalType": "enum GoalType"
           }
-        ],
-        "internalType": "struct learn.GoalInfo"
+        ]
       }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getUnconfirmedTasks",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple[]",
+        "internalType": "struct Task[]",
+        "components": [
+          { "name": "id", "type": "uint256", "internalType": "uint256" },
+          { "name": "sub", "type": "string", "internalType": "string" },
+          { "name": "completed", "type": "bool", "internalType": "bool" }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getUserCompletedTasks",
+    "inputs": [
+      { "name": "_user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [
+      { "name": "", "type": "uint256[]", "internalType": "uint256[]" }
     ],
     "stateMutability": "view"
   },
@@ -421,30 +236,46 @@
     "type": "function",
     "name": "getUserGoals",
     "inputs": [
-      {
-        "type": "address",
-        "name": "_user",
-        "internalType": "address"
-      }
+      { "name": "_user", "type": "address", "internalType": "address" }
     ],
     "outputs": [
-      {
-        "type": "uint256[]",
-        "name": "",
-        "internalType": "uint256[]"
-      }
+      { "name": "", "type": "uint256[]", "internalType": "uint256[]" }
     ],
     "stateMutability": "view"
   },
   {
     "type": "function",
+    "name": "getUserPoints",
+    "inputs": [
+      { "name": "_user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getWalletByGithub",
+    "inputs": [
+      { "name": "github", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "linkWallet",
+    "inputs": [
+      { "name": "wallet", "type": "address", "internalType": "address" },
+      { "name": "github", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "settleGoal",
     "inputs": [
-      {
-        "type": "uint256",
-        "name": "_goalId",
-        "internalType": "uint256"
-      }
+      { "name": "_goalId", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "nonpayable"
@@ -453,13 +284,203 @@
     "type": "function",
     "name": "stakeAndUnlockGoal",
     "inputs": [
-      {
-        "type": "uint256",
-        "name": "_goalId",
-        "internalType": "uint256"
-      }
+      { "name": "_goalId", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
     "stateMutability": "payable"
+  },
+  {
+    "type": "event",
+    "name": "DebugLog",
+    "inputs": [
+      {
+        "name": "msgValue",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "requiredStake",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GoalCreated",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "description",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "requiredStake",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "taskCount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "goalType",
+        "type": "uint8",
+        "indexed": false,
+        "internalType": "enum GoalType"
+      },
+      {
+        "name": "creator",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GoalSettled",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GoalUnlocked",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "stakeAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "StakeClaimed",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "stakeAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TaskConfirmed",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "taskIndex",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TaskCreated",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "sub",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "WalletLinked",
+    "inputs": [
+      {
+        "name": "wallet",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "githubId",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
   }
 ]

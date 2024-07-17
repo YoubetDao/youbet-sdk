@@ -16,3 +16,9 @@ export interface GoalInfo {
   participants?: string[];
   goalType: number;
 }
+
+export interface Task {
+  id: number;
+  sub: string;
+  completed: boolean;
+}

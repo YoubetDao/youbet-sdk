@@ -27,7 +27,8 @@ export class ContractModule {
     // 钱包插件
     else if (typeof window !== 'undefined' && window.ethereum) {
       const provider = new ethers.BrowserProvider(window.ethereum);
-      await provider.send('wallet_switchEthereumChain', [{ chainId: ethers.toBeHex(this.sdk.sdkOptions.networkOptions.chainId) }])
+      // TODO: the scroll chainId seems not working?
+      // await provider.send('wallet_switchEthereumChain', [{ chainId: ethers.toBeHex(this.sdk.sdkOptions.networkOptions.chainId) }])
       const signer = await provider.getSigner()
       this._ethContract = new ethers.Contract(this.sdk.sdkOptions.networkOptions.contractAddress, this.sdk.sdkOptions.networkOptions.abi, signer);
       return this._ethContract;
@@ -82,6 +83,24 @@ export class ContractModule {
   async settleGoal(goalId: number): Promise<void> {
     const contract = await this._getContract();
     const tx = await contract.settleGoal(goalId);
+    await tx.wait();
+  }
+
+  async createTask(sub: string): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.createTask(sub);
+    await tx.wait();
+  }
+  
+  async linkWallet(user: string, github: string): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.linkWallet(user, github);
+    await tx.wait();
+  }
+  
+  async confirmTask(taskId: number, github: string): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.confirmTask(taskId, github);
     await tx.wait();
   }
 }
