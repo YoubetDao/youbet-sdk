@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      youbet-sdk:
+        specifier: ^0.0.8
+        version: link:packages/youbet-sdk
     devDependencies:
       inquirer:
         specifier: ^9.3.1
@@ -63,6 +67,9 @@ importers:
       ethers:
         specifier: ^6.13.1
         version: 6.13.1
+      youbet-sdk:
+        specifier: ^0.0.8
+        version: 'link:'
     devDependencies:
       '@types/node':
         specifier: ^20.14.8

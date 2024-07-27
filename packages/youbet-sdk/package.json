@@ -1,13 +1,18 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Awesome SDK it is.",
-  "main": "./dist/main.js",
-  "types": "./dist/main.d.ts",
+  "main": "./dist/cjs/main.js",
+  "module": "./dist/esm/index.js",
+  "exports": {
+    "import": "./dist/esm/main.js",
+    "require": "./dist/cjs/main.js"
+  },
+  "types": "./dist/esm/main.d.ts",
   "scripts": {
     "clean": "rm -rf dist build package",
-    "build": "tsc -p tsconfig.json",
-    "build-watch": "tsc -p tsconfig.json --watch",
+    "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
+    "build-watch": "tsc -p tsconfig.esm.json --watch",
     "build-all": "pnpm clean && pnpm build"
   },
   "repository": {
@@ -17,7 +22,8 @@
   "author": "youbetdao@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "ethers": "^6.13.1"
+    "ethers": "^6.13.1",
+    "youbet-sdk": "^0.0.8"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",
