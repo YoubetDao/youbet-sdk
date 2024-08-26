@@ -43,7 +43,7 @@ export class SDK {
     }
 
     const testnetOptions = {
-      contractAddress: '0x31794487C8AEFEec3daDad01b33e9Cc70Fe02aEe',
+      contractAddress: '0x56e9D8CB9Cd976BD87Bf3e4f490a516fe033D708',
       rpcUrl: 'https://sepolia-rpc.scroll.io',
       chainId: 534351,
       abi: ABI

@@ -4,7 +4,7 @@ import { Section } from "../Section";
 import { Button } from "../Button";
 
 export function ConfirmTask() {
-  const [taskId, setTaskId] = useState(1);
+  const [taskId, setTaskId] = useState("2460577971");
   const [github, setGithub] = useState("wfnuser");
 
   const tryMe = async () => {
@@ -19,7 +19,7 @@ export function ConfirmTask() {
           <label>TaskId</label>
           <input
             value={taskId}
-            onChange={(e) => setTaskId(Number(e.target.value))}
+            onChange={(e) => setTaskId(e.target.value)}
           />
         </div>
         <div>
