@@ -1,6 +1,6 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Awesome SDK it is.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/index.js",
@@ -23,7 +23,7 @@
   "license": "ISC",
   "dependencies": {
     "ethers": "^6.13.1",
-    "youbet-sdk": "^0.0.8"
+    "youbet-sdk": "^0.0.9"
   },
   "devDependencies": {
     "@types/node": "^20.14.8",

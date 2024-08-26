@@ -13,6 +13,6 @@
     "npm-run-all": "^4.1.5"
   },
   "dependencies": {
-    "youbet-sdk": "^0.0.8"
+    "youbet-sdk": "^0.0.9"
   }
 }
