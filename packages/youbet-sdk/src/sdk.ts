@@ -43,9 +43,9 @@ export class SDK {
     }
 
     const testnetOptions = {
-      contractAddress: '0x31794487C8AEFEec3daDad01b33e9Cc70Fe02aEe',
-      rpcUrl: 'https://sepolia-rpc.scroll.io',
-      chainId: 534351,
+      contractAddress: '0xD5C57B49b58744202EB1e67F4b7e6cB1aD06844f',
+      rpcUrl: 'https://open-campus-codex-sepolia.drpc.org',
+      chainId: 656476,
       abi: ABI
     }
 

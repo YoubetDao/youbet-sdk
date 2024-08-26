@@ -23,6 +23,13 @@
   },
   {
     "type": "function",
+    "name": "claimReward",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
     "name": "claimStake",
     "inputs": [
       { "name": "_goalId", "type": "uint256", "internalType": "uint256" }
@@ -34,7 +41,7 @@
     "type": "function",
     "name": "confirmTask",
     "inputs": [
-      { "name": "_taskId", "type": "uint256", "internalType": "uint256" },
+      { "name": "_taskId", "type": "string", "internalType": "string" },
       { "name": "github", "type": "string", "internalType": "string" }
     ],
     "outputs": [],
@@ -91,10 +98,33 @@
   },
   {
     "type": "function",
-    "name": "createTask",
-    "inputs": [{ "name": "_sub", "type": "string", "internalType": "string" }],
+    "name": "createProject",
+    "inputs": [
+      { "name": "_projectId", "type": "string", "internalType": "string" },
+      { "name": "_name", "type": "string", "internalType": "string" }
+    ],
     "outputs": [],
     "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "createTask",
+    "inputs": [
+      { "name": "_id", "type": "string", "internalType": "string" },
+      { "name": "_name", "type": "string", "internalType": "string" },
+      { "name": "projectId", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "donateToProject",
+    "inputs": [
+      { "name": "projectId", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
   },
   {
     "type": "function",
@@ -137,6 +167,13 @@
   },
   {
     "type": "function",
+    "name": "getAllProjectIds",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "string[]", "internalType": "string[]" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "getAllTasks",
     "inputs": [],
     "outputs": [
@@ -145,12 +182,27 @@
         "type": "tuple[]",
         "internalType": "struct Task[]",
         "components": [
-          { "name": "id", "type": "uint256", "internalType": "uint256" },
-          { "name": "sub", "type": "string", "internalType": "string" },
-          { "name": "completed", "type": "bool", "internalType": "bool" }
+          { "name": "id", "type": "string", "internalType": "string" },
+          { "name": "name", "type": "string", "internalType": "string" },
+          { "name": "completed", "type": "bool", "internalType": "bool" },
+          { "name": "projectId", "type": "string", "internalType": "string" },
+          {
+            "name": "taskCompleter",
+            "type": "address",
+            "internalType": "address"
+          }
         ]
       }
     ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getClaimedRewards",
+    "inputs": [
+      { "name": "user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
   {
@@ -205,6 +257,36 @@
   },
   {
     "type": "function",
+    "name": "getProjectParticipants",
+    "inputs": [
+      { "name": "projectId", "type": "string", "internalType": "string" }
+    ],
+    "outputs": [
+      { "name": "", "type": "address[]", "internalType": "address[]" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getProjectUserPoints",
+    "inputs": [
+      { "name": "projectId", "type": "string", "internalType": "string" },
+      { "name": "user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getTotalRewards",
+    "inputs": [
+      { "name": "user", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
     "name": "getUnconfirmedTasks",
     "inputs": [],
     "outputs": [
@@ -213,9 +295,15 @@
         "type": "tuple[]",
         "internalType": "struct Task[]",
         "components": [
-          { "name": "id", "type": "uint256", "internalType": "uint256" },
-          { "name": "sub", "type": "string", "internalType": "string" },
-          { "name": "completed", "type": "bool", "internalType": "bool" }
+          { "name": "id", "type": "string", "internalType": "string" },
+          { "name": "name", "type": "string", "internalType": "string" },
+          { "name": "completed", "type": "bool", "internalType": "bool" },
+          { "name": "projectId", "type": "string", "internalType": "string" },
+          {
+            "name": "taskCompleter",
+            "type": "address",
+            "internalType": "address"
+          }
         ]
       }
     ],
@@ -372,6 +460,31 @@
   },
   {
     "type": "event",
+    "name": "GoalTaskConfirmed",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "taskIndex",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
     "name": "GoalUnlocked",
     "inputs": [
       {
@@ -388,6 +501,44 @@
       },
       {
         "name": "stakeAmount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ProjectCreated",
+    "inputs": [
+      {
+        "name": "projectId",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RewardClaimed",
+    "inputs": [
+      {
+        "name": "user",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "reward",
         "type": "uint256",
         "indexed": false,
         "internalType": "uint256"
@@ -426,9 +577,9 @@
     "inputs": [
       {
         "name": "id",
-        "type": "uint256",
+        "type": "string",
         "indexed": false,
-        "internalType": "uint256"
+        "internalType": "string"
       },
       {
         "name": "user",
@@ -437,10 +588,10 @@
         "internalType": "address"
       },
       {
-        "name": "taskIndex",
-        "type": "uint256",
+        "name": "taskName",
+        "type": "string",
         "indexed": false,
-        "internalType": "uint256"
+        "internalType": "string"
       }
     ],
     "anonymous": false
@@ -451,9 +602,9 @@
     "inputs": [
       {
         "name": "id",
-        "type": "uint256",
+        "type": "string",
         "indexed": false,
-        "internalType": "uint256"
+        "internalType": "string"
       },
       {
         "name": "sub",

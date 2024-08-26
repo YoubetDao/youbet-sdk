@@ -29,6 +29,12 @@ export class ContractModule {
       const provider = new ethers.BrowserProvider(window.ethereum);
       // TODO: the scroll chainId seems not working?
       // await provider.send('wallet_switchEthereumChain', [{ chainId: ethers.toBeHex(this.sdk.sdkOptions.networkOptions.chainId) }])
+      const hexChainId = '0x' + Number(this.sdk.sdkOptions.networkOptions.chainId).toString(16);
+      await provider.send('wallet_addEthereumChain', [{
+        chainId: hexChainId,
+        chainName: 'OpenCampus-Testnet',
+        rpcUrls: [this.sdk.sdkOptions.networkOptions.rpcUrl],
+      }]);
       const signer = await provider.getSigner()
       this._ethContract = new ethers.Contract(this.sdk.sdkOptions.networkOptions.contractAddress, this.sdk.sdkOptions.networkOptions.abi, signer);
       return this._ethContract;
@@ -86,9 +92,15 @@ export class ContractModule {
     await tx.wait();
   }
 
-  async createTask(sub: string): Promise<void> {
+  async createTask(id: string, name: string, projectId: string): Promise<void> {
     const contract = await this._getContract();
-    const tx = await contract.createTask(sub);
+    const tx = await contract.createTask(id, name, projectId);
+    await tx.wait();
+  }
+
+  async createProject(id: string, name: string): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.createProject(id, name);
     await tx.wait();
   }
   
@@ -98,9 +110,21 @@ export class ContractModule {
     await tx.wait();
   }
   
-  async confirmTask(taskId: number, github: string): Promise<void> {
+  async confirmTask(taskId: string, github: string): Promise<void> {
     const contract = await this._getContract();
     const tx = await contract.confirmTask(taskId, github);
+    await tx.wait();
+  }
+
+  async claimReward(): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.claimReward();
+    await tx.wait();
+  }
+
+  async donateToProject(projectId: string, amount: string): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.donateToProject(projectId, {value: ethers.parseEther(amount)});
     await tx.wait();
   }
 }
