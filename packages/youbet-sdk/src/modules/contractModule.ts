@@ -32,8 +32,8 @@ export class ContractModule {
       const hexChainId = '0x' + Number(this.sdk.sdkOptions.networkOptions.chainId).toString(16);
       await provider.send('wallet_addEthereumChain', [{
         chainId: hexChainId,
-        chainName: 'Scroll Sepolia',
-        rpcUrls: ['https://sepolia-rpc.scroll.io/'],
+        chainName: 'OpenCampus-Testnet',
+        rpcUrls: [this.sdk.sdkOptions.networkOptions.rpcUrl],
       }]);
       const signer = await provider.getSigner()
       this._ethContract = new ethers.Contract(this.sdk.sdkOptions.networkOptions.contractAddress, this.sdk.sdkOptions.networkOptions.abi, signer);
