@@ -11,8 +11,5 @@
   "devDependencies": {
     "inquirer": "^9.3.1",
     "npm-run-all": "^4.1.5"
-  },
-  "dependencies": {
-    "youbet-sdk": "^0.0.9"
   }
 }
