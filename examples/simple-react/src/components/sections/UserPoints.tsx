@@ -11,7 +11,7 @@ export function UserPoints() {
 
   const tryMe = async () => {
     const result = await sdk.client.getUserPoints(user);
-    setValue(result);
+    setValue((result));
     console.log(result);
   };
 

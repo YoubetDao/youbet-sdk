@@ -32,7 +32,7 @@ export class ContractModule {
       const hexChainId = '0x' + Number(this.sdk.sdkOptions.networkOptions.chainId).toString(16);
       await provider.send('wallet_addEthereumChain', [{
         chainId: hexChainId,
-        chainName: 'OpenCampus-Testnet',
+        chainName: this.sdk.sdkOptions.chainName || 'Unknown Chain',
         rpcUrls: [this.sdk.sdkOptions.networkOptions.rpcUrl],
       }]);
       const signer = await provider.getSigner()
