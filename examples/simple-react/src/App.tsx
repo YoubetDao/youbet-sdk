@@ -23,6 +23,8 @@ import { GetClaimedRewards } from "./components/sections/GetClaimedRewards";
 import { GetTotalRewards } from "./components/sections/GetTotalRewards";
 import { AllProjects } from "./components/sections/AllProjects";
 import { GetProjectParticipants } from "./components/sections/GetProjectParticipants";
+import { GetWalletByGithub } from "./components/sections/GetWalletByGithub";
+import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
 // import { GoalCreated } from './components/sections/GoalCreated'
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
         <GetClaimedRewards />
         <AllProjects />
         <GetProjectParticipants />
+        <GetWalletByGithub />
+        <GetGithubByWallet />
         {/* <GoalCreated /> */}
       </main>
       <footer className="footer">

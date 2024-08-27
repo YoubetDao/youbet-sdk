@@ -17,6 +17,8 @@ export interface ViewContract extends BaseContract {
   getAllProjectIds: BaseContractMethod<[], any, Result>;
   getProjectParticipants: BaseContractMethod<[string], any, Result>;
   getProjectUserPoints: BaseContractMethod<[string, string], any, number>;
+  getGithubByWallet: BaseContractMethod<[string], any, string>;
+  getWalletByGithub: BaseContractMethod<[string], any, string>;
 }
 
 export class ClientModule {
@@ -122,6 +124,18 @@ export class ClientModule {
   async getProjectUserPoints(projectId: string, user: string): Promise<number> {
     const contract = await this._getContract();
     const result = await contract.getProjectUserPoints(projectId, user);
+    return result;
+  }
+
+  async getGithubByWallet(user: string): Promise<string> {
+    const contract = await this._getContract();
+    const result = await contract.getGithubByWallet(user);
+    return result;
+  }
+
+  async getWalletByGithub(github: string): Promise<string> {
+    const contract = await this._getContract();
+    const result = await contract.getWalletByGithub(github);
     return result;
   }
 }
