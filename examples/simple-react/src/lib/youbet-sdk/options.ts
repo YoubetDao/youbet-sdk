@@ -1,9 +1,9 @@
 import { SdkCtorOptions } from "youbet-sdk";
 
-export const lineaOptions: SdkCtorOptions = {
+export const lineaTestOptions: SdkCtorOptions = {
   networkOptions: {
-    contractAddress: '0x902e2f3179aa959137fdc823754555b10c40f5b1',
-    rpcUrl: 'https://rpc.linea.build',
+    contractAddress: '0x537AEB55b80a2361414318BF3BF8c2b340c212E7',
+    rpcUrl: 'https://rpc.sepolia.linea.build',
     chainId: 59144,
   },
   chainName: 'Linea',
