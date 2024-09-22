@@ -1,6 +1,6 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "Awesome SDK it is.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/index.js",

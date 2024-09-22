@@ -110,9 +110,9 @@ export class ContractModule {
     await tx.wait();
   }
   
-  async confirmTask(taskId: string, github: string): Promise<void> {
+  async confirmTask(taskId: string, github: string, taskPoints: number): Promise<void> {
     const contract = await this._getContract();
-    const tx = await contract.confirmTask(taskId, github);
+    const tx = await contract.confirmTask(taskId, github, taskPoints);
     await tx.wait();
   }
 

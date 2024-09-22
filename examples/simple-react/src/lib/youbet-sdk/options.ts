@@ -13,7 +13,7 @@ export const openCampusTestOptions: SdkCtorOptions = {
   networkOptions: {
     rpcUrl: 'https://open-campus-codex-sepolia.drpc.org',
     chainId: 656476,
-    contractAddress: '0xD5C57B49b58744202EB1e67F4b7e6cB1aD06844f',
+    contractAddress: '0xd8dcbd828a40f6590a5bee5095c38994dab3bdee',
   },
   chainName: 'OpenCampus-Testnet',
 };
