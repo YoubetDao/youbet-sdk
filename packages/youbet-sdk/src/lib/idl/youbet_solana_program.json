@@ -1,0 +1,746 @@
+{
+  "address": "7d9dheT1PcwmeE3PYYf4xjjnUJzhBpDMvAuUEBEdrE3W",
+  "metadata": {
+    "name": "youbet_solana_program",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "confirm_task",
+      "discriminator": [
+        168,
+        184,
+        67,
+        118,
+        227,
+        95,
+        112,
+        166
+      ],
+      "accounts": [
+        {
+          "name": "fee_and_rent_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "task",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  84,
+                  65,
+                  83,
+                  75
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "task_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "project",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  80,
+                  82,
+                  79,
+                  74,
+                  69,
+                  67,
+                  84
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "task.project_id",
+                "account": "TaskAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "github_account",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  71,
+                  73,
+                  84,
+                  72,
+                  85,
+                  66
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "github"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wallet_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  87,
+                  65,
+                  76,
+                  76,
+                  69,
+                  84
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "github_account.wallet",
+                "account": "GithubAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "project_user_point",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  80,
+                  82,
+                  79,
+                  74,
+                  69,
+                  67,
+                  84,
+                  95,
+                  85,
+                  83,
+                  69,
+                  82,
+                  95,
+                  80,
+                  79,
+                  73,
+                  78,
+                  84
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "task.project_id",
+                "account": "TaskAccount"
+              },
+              {
+                "kind": "account",
+                "path": "github_account.wallet",
+                "account": "GithubAccount"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "task_id",
+          "type": "string"
+        },
+        {
+          "name": "github",
+          "type": "string"
+        },
+        {
+          "name": "points",
+          "type": "u32"
+        },
+        {
+          "name": "_task_bump",
+          "type": "u8"
+        },
+        {
+          "name": "_github_bump",
+          "type": "u8"
+        },
+        {
+          "name": "_wallet_bump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "create_project",
+      "discriminator": [
+        148,
+        219,
+        181,
+        42,
+        221,
+        114,
+        145,
+        190
+      ],
+      "accounts": [
+        {
+          "name": "fee_and_rent_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "project",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  80,
+                  82,
+                  79,
+                  74,
+                  69,
+                  67,
+                  84
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "project_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "project_id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "create_task",
+      "discriminator": [
+        194,
+        80,
+        6,
+        180,
+        232,
+        127,
+        48,
+        171
+      ],
+      "accounts": [
+        {
+          "name": "fee_and_rent_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "task",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  84,
+                  65,
+                  83,
+                  75
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "task_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "project",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  80,
+                  82,
+                  79,
+                  74,
+                  69,
+                  67,
+                  84
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "project_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "task_id",
+          "type": "string"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "project_id",
+          "type": "string"
+        },
+        {
+          "name": "_project_bump",
+          "type": "u8"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "fee_and_rent_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "admin_config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  65,
+                  68,
+                  77,
+                  73,
+                  78,
+                  95,
+                  67,
+                  79,
+                  78,
+                  70,
+                  73,
+                  71,
+                  95,
+                  80,
+                  82,
+                  69,
+                  70,
+                  73,
+                  88
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "link_wallet",
+      "discriminator": [
+        86,
+        92,
+        31,
+        146,
+        228,
+        51,
+        209,
+        230
+      ],
+      "accounts": [
+        {
+          "name": "fee_and_rent_payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "admin_config",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  65,
+                  68,
+                  77,
+                  73,
+                  78,
+                  95,
+                  67,
+                  79,
+                  78,
+                  70,
+                  73,
+                  71,
+                  95,
+                  80,
+                  82,
+                  69,
+                  70,
+                  73,
+                  88
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "wallet_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  87,
+                  65,
+                  76,
+                  76,
+                  69,
+                  84
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "wallet"
+              }
+            ]
+          }
+        },
+        {
+          "name": "github_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  71,
+                  73,
+                  84,
+                  72,
+                  85,
+                  66
+                ]
+              },
+              {
+                "kind": "arg",
+                "path": "github"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "wallet",
+          "type": "pubkey"
+        },
+        {
+          "name": "github",
+          "type": "string"
+        },
+        {
+          "name": "_admin_config_bump",
+          "type": "u8"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "AdminConfigAccount",
+      "discriminator": [
+        146,
+        83,
+        3,
+        83,
+        20,
+        231,
+        147,
+        20
+      ]
+    },
+    {
+      "name": "GithubAccount",
+      "discriminator": [
+        238,
+        164,
+        204,
+        82,
+        209,
+        140,
+        221,
+        234
+      ]
+    },
+    {
+      "name": "ProjectAccount",
+      "discriminator": [
+        179,
+        110,
+        82,
+        178,
+        208,
+        35,
+        171,
+        116
+      ]
+    },
+    {
+      "name": "ProjectUserPointAccount",
+      "discriminator": [
+        77,
+        255,
+        210,
+        1,
+        183,
+        110,
+        196,
+        205
+      ]
+    },
+    {
+      "name": "TaskAccount",
+      "discriminator": [
+        235,
+        32,
+        10,
+        23,
+        81,
+        60,
+        170,
+        203
+      ]
+    },
+    {
+      "name": "WalletAccount",
+      "discriminator": [
+        158,
+        98,
+        171,
+        153,
+        212,
+        64,
+        242,
+        213
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidAuthority",
+      "msg": "Invalid authority"
+    }
+  ],
+  "types": [
+    {
+      "name": "AdminConfigAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "last_block_timestamp",
+            "type": "i64"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GithubAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "wallet",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProjectAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "project_id",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "participaints",
+            "type": {
+              "vec": "pubkey"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProjectUserPointAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "user_point",
+            "type": "u32"
+          }
+        ]
+      }
+    },
+    {
+      "name": "TaskAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "task_id",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "completed",
+            "type": "bool"
+          },
+          {
+            "name": "project_id",
+            "type": "string"
+          },
+          {
+            "name": "project_bump",
+            "type": "u8"
+          },
+          {
+            "name": "task_completer",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "WalletAccount",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "github",
+            "type": "string"
+          },
+          {
+            "name": "user_point",
+            "type": "u32"
+          },
+          {
+            "name": "completed_tasks",
+            "type": {
+              "vec": "string"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "PROJECT_PREFIX",
+      "type": "string",
+      "value": "\"PROJECT\""
+    }
+  ]
+}
