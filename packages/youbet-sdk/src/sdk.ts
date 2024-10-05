@@ -1,9 +1,8 @@
-
-import ABI from './lib/abi/bet.json';
-import { ClientModule } from './modules/clientModule';
-import { ContractModule } from './modules/contractModule';
+import ABI from "./lib/abi/bet.json";
+import { ClientModule } from "./modules/clientModule";
+import { ContractModule } from "./modules/contractModule";
 // import { EventModule } from './modules/eventModule';
-import { SdkCtorOptions, SdkOptions } from './types';
+import { SdkCtorOptions, SdkOptions } from "./types";
 
 export class SDK {
   private _sdkOptions: SdkOptions;
@@ -15,16 +14,18 @@ export class SDK {
     const { networkOptions } = { ...options };
 
     if (!networkOptions) {
-      throw new Error('Network options are required');
+      throw new Error("Network options are required");
     }
 
     this._sdkOptions = {
       privateKey: options?.privateKey,
       networkOptions: {
         ...networkOptions,
-        abi: ABI
-      }
-    }
+        abi: ABI,
+      },
+      wallet: options?.wallet,
+      connection: options?.connection,
+    };
 
     this._client = new ClientModule(this);
     this._contract = new ContractModule(this);
@@ -32,15 +33,15 @@ export class SDK {
   }
 
   get sdkOptions() {
-    return this._sdkOptions
+    return this._sdkOptions;
   }
 
   get client() {
-    return this._client
+    return this._client;
   }
 
   get contract() {
-    return this._contract
+    return this._contract;
   }
 
   // get event() {

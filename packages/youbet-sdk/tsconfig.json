@@ -22,6 +22,7 @@
     "outDir": "./dist/",
     "types": [
       "node",
+      "jest"
     ],
     "lib": [
       "ES6",

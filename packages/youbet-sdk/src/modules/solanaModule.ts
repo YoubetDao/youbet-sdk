@@ -1,7 +1,9 @@
 import { AnchorProvider, Idl, Program, Wallet } from "@coral-xyz/anchor";
+import bs58 from "bs58";
 
 import type { YoubetSolanaProgram } from "../lib/idl/youbet_solana_program";
 import idl from "../lib/idl/youbet_solana_program.json";
+import { SDK } from "../sdk";
 
 import {
   Connection,
@@ -19,15 +21,23 @@ const GITHUB_PREFIX: string = "GITHUB";
 
 export class YoubetSolanaProgramLib {
   youbetSolanaProgram: Program<YoubetSolanaProgram>;
-  connection: Connection;
-  feeAndRentKeypair: Keypair;
+  feeAndRentKeypair!: Keypair;
 
-  constructor(
-    connection: Connection,
-    wallet: Wallet,
-    feeAndRentKeypair: Keypair
-  ) {
-    this.connection = connection;
+  constructor(sdk: SDK) {
+    let connection: Connection;
+    let wallet: Wallet;
+    if (sdk.sdkOptions.privateKey) {
+      this.feeAndRentKeypair = Keypair.fromSecretKey(
+        bs58.decode(sdk.sdkOptions.privateKey)
+      );
+      wallet = new Wallet(this.feeAndRentKeypair);
+      connection = new Connection(sdk.sdkOptions.networkOptions.rpcUrl, {
+        commitment: "confirmed",
+      });
+    } else {
+      wallet = sdk.sdkOptions.wallet!;
+      connection = sdk.sdkOptions.connection!;
+    }
     const provider = new AnchorProvider(
       connection,
       wallet,
@@ -37,7 +47,6 @@ export class YoubetSolanaProgramLib {
       idl as Idl,
       provider
     ) as unknown as Program<YoubetSolanaProgram>;
-    this.feeAndRentKeypair = feeAndRentKeypair;
   }
 
   getAdminConfigAccountPdaAndBump(): [PublicKey, number] {
