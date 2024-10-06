@@ -44,14 +44,10 @@ export class SolanaContractModule implements baseContractModule {
       this.feeAndRentKeypair = Keypair.fromSecretKey(
         bs58.decode(sdk.sdkOptions.privateKey)
       );
-      // this.wallet = new Wallet(this.feeAndRentKeypair);
-      this.connection = new Connection(sdk.sdkOptions.networkOptions.rpcUrl, {
-        commitment: "confirmed",
-      });
-    } else {
-      this.wallet = sdk.sdkOptions.wallet!;
-      this.connection = sdk.sdkOptions.connection!;
     }
+    this.wallet = sdk.sdkOptions.wallet!;
+    this.connection = sdk.sdkOptions.connection!;
+
     const provider = new AnchorProvider(
       this.connection,
       this.wallet,

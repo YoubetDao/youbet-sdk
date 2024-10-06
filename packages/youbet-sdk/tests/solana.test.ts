@@ -10,18 +10,23 @@ const SECONDS = 1000;
 jest.setTimeout(70 * SECONDS);
 const privateKey = "";
 const authority = Keypair.fromSecretKey(bs58.decode(privateKey));
-const project_id = "project_repo#844974701";
-const task_id = "task_repo#844974701";
+const project_id = "project_repo#844974703";
+const task_id = "task_repo#844974703";
 const github_id = "844974701";
 
 describe("backend", () => {
-  let sdkCtorOptions: SdkCtorOptions = {
+  const sdkCtorOptions: SdkCtorOptions = {
     privateKey: privateKey,
+    chainName: "solana",
     networkOptions: {
-      contractAddress: "string",
+      contractAddress: "",
       rpcUrl: "https://api.devnet.solana.com",
       chainId: 0,
     },
+    wallet: new Wallet(Keypair.fromSecretKey(bs58.decode(privateKey))),
+    connection: new Connection("https://api.devnet.solana.com", {
+      commitment: "confirmed",
+    }),
   };
   let sdk = new SDK(sdkCtorOptions);
   let solanaContractModdule = new SolanaContractModule(sdk);
@@ -65,15 +70,7 @@ describe("backend", () => {
     console.log(tasks);
   });
 });
-//
-// https://solana.com/developers/courses/onchain-development/intro-to-anchor-frontend
-// import {
-//   useAnchorWallet,
-//   useConnection,
-// } from "@solana/wallet-adapter-react";
-// const { connection } = useConnection();
-// const wallet = useAnchorWallet();
-//
+
 describe("client", () => {
   const connection = new Connection("https://api.devnet.solana.com", {
     commitment: "confirmed",
