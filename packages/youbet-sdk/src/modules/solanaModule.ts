@@ -120,8 +120,8 @@ export class YoubetSolanaProgramLib {
     feeAndRentPayer: Keypair,
     authority: Keypair
   ): Promise<void> {
-    const [adminConfig, adminBump] = this.getAdminConfigAccountPdaAndBump();
-    const [donatePoolPda, donatePoolBump] = this.getDonatePoolPdaAndBump();
+    const [adminConfig, _adminBump] = this.getAdminConfigAccountPdaAndBump();
+    const [donatePoolPda, _donatePoolBump] = this.getDonatePoolPdaAndBump();
 
     let initializeAccounts = {
       feeAndRentPayer: feeAndRentPayer.publicKey,
@@ -139,7 +139,7 @@ export class YoubetSolanaProgramLib {
     console.log("setAdminConfigAccount signature", tx);
   }
   async getAdminConfigAccount(): Promise<any> {
-    const [adminConfig, adminBump] = this.getAdminConfigAccountPdaAndBump();
+    const [adminConfig, _adminBump] = this.getAdminConfigAccountPdaAndBump();
     const adminConfigData =
       await this.youbetSolanaProgram.account.adminConfigAccount.fetch(
         adminConfig.toBase58()
@@ -147,7 +147,7 @@ export class YoubetSolanaProgramLib {
     return adminConfigData;
   }
   async createTask(id: string, name: string, projectId: string): Promise<void> {
-    const [task, taskBump] = this.getTaskAccountPdaAndBump(id);
+    const [task, _taskBump] = this.getTaskAccountPdaAndBump(id);
     const [project, projectBump] = this.getProjectAccountPdaAndBump(projectId);
     let createTaskAccounts = {
       feeAndRentPayer: this.feeAndRentKeypair.publicKey,
@@ -164,14 +164,14 @@ export class YoubetSolanaProgramLib {
     console.log("createTask signature", tx);
   }
   async getTask(id: string): Promise<any> {
-    const [task, taskBump] = this.getTaskAccountPdaAndBump(id);
+    const [task, _taskBump] = this.getTaskAccountPdaAndBump(id);
     const taskData = await this.youbetSolanaProgram.account.taskAccount.fetch(
       task.toBase58()
     );
     return taskData;
   }
   async createProject(id: string, name: string): Promise<void> {
-    const [project, projectBump] = this.getProjectAccountPdaAndBump(id);
+    const [project, _projectBump] = this.getProjectAccountPdaAndBump(id);
     let createProjectAccounts = {
       feeAndRentPayer: this.feeAndRentKeypair.publicKey,
       project,
@@ -186,7 +186,7 @@ export class YoubetSolanaProgramLib {
     console.log("createProject signature", tx);
   }
   async getProject(id: string): Promise<any> {
-    const [project, projectBump] = this.getProjectAccountPdaAndBump(id);
+    const [project, _projectBump] = this.getProjectAccountPdaAndBump(id);
     const projectData =
       await this.youbetSolanaProgram.account.projectAccount.fetch(
         project.toBase58()
@@ -194,7 +194,7 @@ export class YoubetSolanaProgramLib {
     return projectData;
   }
   async isProjectExisted(id: string): Promise<boolean> {
-    const [project, projectBump] = this.getProjectAccountPdaAndBump(id);
+    const [project, _projectBump] = this.getProjectAccountPdaAndBump(id);
     const projectData =
       await this.youbetSolanaProgram.account.projectAccount.fetch(
         project.toBase58()
@@ -208,8 +208,10 @@ export class YoubetSolanaProgramLib {
   async linkWallet(user: string, github: string): Promise<void> {
     const wallet = new PublicKey(user);
     const [adminConfig, adminBump] = this.getAdminConfigAccountPdaAndBump();
-    const [walletAccount, walletBump] = this.getWalletAccountPdaAndBump(wallet);
-    const [githubAccount, githubBump] = this.getGithubAccountPdaAndBump(github);
+    const [walletAccount, _walletBump] =
+      this.getWalletAccountPdaAndBump(wallet);
+    const [githubAccount, _githubBump] =
+      this.getGithubAccountPdaAndBump(github);
 
     let createLinkWalletAccounts = {
       feeAndRentPayer: this.feeAndRentKeypair.publicKey,
@@ -228,7 +230,7 @@ export class YoubetSolanaProgramLib {
   }
   async getGithubByWallet(wallet: string): Promise<any> {
     const walletPk = new PublicKey(wallet);
-    const [walletAccount, walletBump] =
+    const [walletAccount, _walletBump] =
       this.getWalletAccountPdaAndBump(walletPk);
     const walletData =
       await this.youbetSolanaProgram.account.walletAccount.fetch(
@@ -237,7 +239,8 @@ export class YoubetSolanaProgramLib {
     return walletData.github;
   }
   async getWalletByGithub(github: string): Promise<any> {
-    const [githubAccount, githubBump] = this.getGithubAccountPdaAndBump(github);
+    const [githubAccount, _githubBump] =
+      this.getGithubAccountPdaAndBump(github);
     const githubData =
       await this.youbetSolanaProgram.account.githubAccount.fetch(
         githubAccount.toBase58()
@@ -256,10 +259,10 @@ export class YoubetSolanaProgramLib {
       );
     const wallet = new PublicKey(githubData.wallet);
     const [walletAccount, walletBump] = this.getWalletAccountPdaAndBump(wallet);
-    const [project, projectBump] = this.getProjectAccountPdaAndBump(
+    const [project, _projectBump] = this.getProjectAccountPdaAndBump(
       taskData.projectId
     );
-    const [projectUserPoint, projectUserPointBump] =
+    const [projectUserPoint, _projectUserPointBump] =
       this.getProjectUserPointPdaAndBump(taskData.projectId, githubData.wallet);
     const confirmTaskAccounts = {
       feeAndRentPayer: this.feeAndRentKeypair.publicKey,
@@ -281,7 +284,7 @@ export class YoubetSolanaProgramLib {
   }
   async getUserPoints(user: string): Promise<any> {
     const walletPk = new PublicKey(user);
-    const [walletAccount, walletBump] =
+    const [walletAccount, _walletBump] =
       this.getWalletAccountPdaAndBump(walletPk);
     const walletData =
       await this.youbetSolanaProgram.account.walletAccount.fetch(
@@ -291,7 +294,7 @@ export class YoubetSolanaProgramLib {
   }
   async getUserCompletedTasks(user: string): Promise<Array<any>> {
     const walletPk = new PublicKey(user);
-    const [walletAccount, walletBump] =
+    const [walletAccount, _walletBump] =
       this.getWalletAccountPdaAndBump(walletPk);
     const walletData =
       await this.youbetSolanaProgram.account.walletAccount.fetch(
@@ -337,7 +340,7 @@ export class YoubetSolanaProgramLib {
       systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
-    const tx = await this.youbetSolanaProgram.methods
+    await this.youbetSolanaProgram.methods
       .donateToProject(
         this.parseSOL(amount),
         projectId,
@@ -359,7 +362,7 @@ export class YoubetSolanaProgramLib {
 
   async getRewardAmount(user: string): Promise<BN> {
     const wallet = new PublicKey(user);
-    const [rewardPda, rewardBump] = this.getRewardPdaAndBump(wallet);
+    const [rewardPda, _rewardBump] = this.getRewardPdaAndBump(wallet);
     const rewardAccount =
       await this.youbetSolanaProgram.account.rewardAccount.fetch(rewardPda);
     return rewardAccount.rewardAmount;
@@ -377,7 +380,7 @@ export class YoubetSolanaProgramLib {
       systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
-    const tx = await this.youbetSolanaProgram.methods
+    await this.youbetSolanaProgram.methods
       .claimReward(donatePoolBump, rewardBump)
       .accounts(claimRewardAccounts)
       .rpc();
