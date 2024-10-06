@@ -43,22 +43,24 @@ function App() {
   const endpoint = clusterApiUrl(network);
   const wallets = [ new PhantomWalletAdapter()];
   return (
-    <>
-      <header className="header">
-        <img
-          className="logo"
-          src="/logo.png"
-          alt="logo"
-          width={28}
-          height={28}
-        />
-        <span>YouBet SDK</span>
-      </header>
-      <main className="main">
-        <ConnectionProvider endpoint={endpoint}>
-          <WalletProvider wallets={wallets} autoConnect>
-            <WalletModalProvider>   
-              <WalletMultiButton />    
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>   
+          <header className="header">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                className="logo"
+                src="/logo.png"
+                alt="logo"
+                width={28}
+                height={28}
+              />
+              <span>YouBet SDK</span>
+            </div>
+            
+            <WalletMultiButton />    
+          </header>
+          <main className="main">
               <ContractOwner />
               <AllGoals />
               <GoalDetails />
@@ -86,22 +88,21 @@ function App() {
               <GetProjectParticipants />
               <GetWalletByGithub />
               <GetGithubByWallet />
-              {/* <GoalCreated /> */}
-            </WalletModalProvider>
-          </WalletProvider>
-        </ConnectionProvider>        
-      </main>
-      <footer className="footer">
-        Powered By{" "}
-        <a
-          href="https://youbetdao.github.io/"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          YouBet
-        </a>
-      </footer>
-    </>
+              {/* <GoalCreated /> */}       
+          </main>
+          <footer className="footer">
+            Powered By{" "}
+            <a
+              href="https://youbetdao.github.io/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              YouBet
+            </a>
+          </footer>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider> 
   );
 }
 

@@ -25,6 +25,12 @@ const GITHUB_PREFIX: string = "GITHUB";
 const DONATE_POOL_PREFIX: string = "DONATE_POOL";
 const REWARD_PREFIX: string = "REWARD";
 
+export function toBuffer(str: string) {
+  return typeof Buffer !== "undefined"
+    ? Buffer.from(str)
+    : new Uint8Array([...str].map((c) => c.charCodeAt(0)));
+}
+
 type DonateToParams = {
   account: PublicKey;
   rewardPda: PublicKey;
@@ -89,31 +95,31 @@ export class SolanaContractModule implements baseContractModule {
 
   getAdminConfigAccountPdaAndBump(): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(ADMIN_CONFIG_PREFIX)],
+      [toBuffer(ADMIN_CONFIG_PREFIX)],
       this.youbetSolanaProgram.programId
     );
   }
   getProjectAccountPdaAndBump(project_id: string): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(PROJECT_PREFIX), Buffer.from(project_id)],
+      [toBuffer(PROJECT_PREFIX), toBuffer(project_id)],
       this.youbetSolanaProgram.programId
     );
   }
   getTaskAccountPdaAndBump(task_id: string): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(TASK_PREFIX), Buffer.from(task_id)],
+      [toBuffer(TASK_PREFIX), toBuffer(task_id)],
       this.youbetSolanaProgram.programId
     );
   }
   getWalletAccountPdaAndBump(wallet: PublicKey): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(WALLET_PREFIX), wallet.toBuffer()],
+      [toBuffer(WALLET_PREFIX), wallet.toBuffer()],
       this.youbetSolanaProgram.programId
     );
   }
   getGithubAccountPdaAndBump(github: string): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(GITHUB_PREFIX), Buffer.from(github)],
+      [toBuffer(GITHUB_PREFIX), toBuffer(github)],
       this.youbetSolanaProgram.programId
     );
   }
@@ -123,8 +129,8 @@ export class SolanaContractModule implements baseContractModule {
   ): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
       [
-        Buffer.from(PROJECT_USER_POINT_PREFIX),
-        Buffer.from(project_id),
+        toBuffer(PROJECT_USER_POINT_PREFIX),
+        toBuffer(project_id),
         wallet.toBuffer(),
       ],
       this.youbetSolanaProgram.programId
@@ -132,13 +138,13 @@ export class SolanaContractModule implements baseContractModule {
   }
   getDonatePoolPdaAndBump(): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(DONATE_POOL_PREFIX)],
+      [toBuffer(DONATE_POOL_PREFIX)],
       this.youbetSolanaProgram.programId
     );
   }
   getRewardPdaAndBump(wallet: PublicKey): [PublicKey, number] {
     return PublicKey.findProgramAddressSync(
-      [Buffer.from(REWARD_PREFIX), wallet.toBuffer()],
+      [toBuffer(REWARD_PREFIX), wallet.toBuffer()],
       this.youbetSolanaProgram.programId
     );
   }
