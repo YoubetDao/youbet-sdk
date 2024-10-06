@@ -26,7 +26,8 @@ export const solanaOptions: SdkCtorOptions = {
     rpcUrl: "https://api.devnet.solana.com",
     chainId: 0,
   },
-  // ts-ignore
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   wallet: window.solana,
   connection: new Connection("https://api.devnet.solana.com", {
     commitment: "confirmed",

@@ -28,7 +28,6 @@ import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
 // import { GoalCreated } from './components/sections/GoalCreated'
 import {
   ConnectionProvider,
-  useWallet,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
