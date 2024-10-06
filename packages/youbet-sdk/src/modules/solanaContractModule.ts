@@ -45,13 +45,7 @@ export class SolanaContractModule implements baseContractModule {
   connection: Connection;
 
   constructor(sdk: SDK) {
-    if (sdk.sdkOptions.privateKey) {
-      this.wallet = Keypair.fromSecretKey(
-        bs58.decode(sdk.sdkOptions.privateKey)
-      );
-    } else {
-      this.wallet = sdk.sdkOptions.wallet!;
-    }
+    this.wallet = sdk.sdkOptions.wallet!;
     this.connection = sdk.sdkOptions.connection!;
 
     const provider = new AnchorProvider(
@@ -257,7 +251,7 @@ export class SolanaContractModule implements baseContractModule {
     const tx = await this.youbetSolanaProgram.methods
       .linkWallet(wallet, github, adminBump)
       .accounts(createLinkWalletAccounts)
-
+      // .signer(this.wallet, this.wallet)
       .rpc();
     console.log("linkWallet signature", tx);
   }

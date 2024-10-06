@@ -31,13 +31,7 @@ export class SolanaClientModule implements BaseClientModule {
   connection: Connection;
 
   constructor(sdk: SDK) {
-    if (sdk.sdkOptions.privateKey) {
-      this.wallet = Keypair.fromSecretKey(
-        bs58.decode(sdk.sdkOptions.privateKey)
-      );
-    } else {
-      this.wallet = sdk.sdkOptions.wallet!;
-    }
+    this.wallet = sdk.sdkOptions.wallet!;
     this.connection = sdk.sdkOptions.connection!;
 
     const provider = new AnchorProvider(
