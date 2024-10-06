@@ -1173,6 +1173,10 @@ export type YoubetSolanaProgram = {
           {
             "name": "rewardAmount",
             "type": "u64"
+          },
+          {
+            "name": "accumulatedAmount",
+            "type": "u64"
           }
         ]
       }

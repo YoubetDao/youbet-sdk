@@ -1,6 +1,6 @@
 import bs58 from "bs58";
 import { Keypair, Connection } from "@solana/web3.js";
-import { YoubetSolanaProgramLib } from "../../youbet-sdk/src/modules/solanaModule";
+import { SolanaContractModule } from "../src/modules/solanaContractModule";
 import { SdkCtorOptions } from "../src/types/index";
 import { SDK } from "../src/sdk";
 import { Wallet } from "@coral-xyz/anchor";
@@ -24,7 +24,7 @@ describe("backend", () => {
     },
   };
   let sdk = new SDK(sdkCtorOptions);
-  let solanaContractModdule = new YoubetSolanaProgramLib(sdk);
+  let solanaContractModdule = new SolanaContractModule(sdk);
 
   test("setAdmin", async () => {
     await solanaContractModdule.setAdminConfigAccount(authority, authority);
@@ -91,7 +91,7 @@ describe("client", () => {
     connection,
   };
   let sdk = new SDK(sdkCtorOptions);
-  let solanaContractModdule = new YoubetSolanaProgramLib(sdk);
+  let solanaContractModdule = new SolanaContractModule(sdk);
 
   test("donateToProject", async () => {
     await solanaContractModdule.donateToProject(project_id, "0.01");

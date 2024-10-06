@@ -26,8 +26,20 @@ import { GetProjectParticipants } from "./components/sections/GetProjectParticip
 import { GetWalletByGithub } from "./components/sections/GetWalletByGithub";
 import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
 // import { GoalCreated } from './components/sections/GoalCreated'
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import "@solana/wallet-adapter-react-ui/styles.css";
+import { clusterApiUrl } from "@solana/web3.js";
 function App() {
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = clusterApiUrl(network);
+  const wallets = [ new PhantomWalletAdapter()];
   return (
     <>
       <header className="header">
@@ -41,34 +53,40 @@ function App() {
         <span>YouBet SDK</span>
       </header>
       <main className="main">
-        <ContractOwner />
-        <AllGoals />
-        <GoalDetails />
-        <UserGoals />
+        <ConnectionProvider endpoint={endpoint}>
+          <WalletProvider wallets={wallets} autoConnect>
+            <WalletModalProvider>       
+            <ContractOwner />
+            <AllGoals />
+            <GoalDetails />
+            <UserGoals />
 
-        <CreateGoal />
-        <CreateGoalSolo />
-        <ClaimStake />
-        <StakeAndUnlockGoal />
-        <ConfirmTaskCompletion />
-        <SettleGoal />
+            <CreateGoal />
+            <CreateGoalSolo />
+            <ClaimStake />
+            <StakeAndUnlockGoal />
+            <ConfirmTaskCompletion />
+            <SettleGoal />
 
-        <AllTasks />
-        <AllUnconfirmedTasks />
-        <UserPoints />
+            <AllTasks />
+            <AllUnconfirmedTasks />
+            <UserPoints />
 
-        <CreateTask />
-        <ConfirmTask />
-        <LinkWallet />
-        <DonateToProject />
-        <ClaimReward />
-        <GetTotalRewards />
-        <GetClaimedRewards />
-        <AllProjects />
-        <GetProjectParticipants />
-        <GetWalletByGithub />
-        <GetGithubByWallet />
-        {/* <GoalCreated /> */}
+            <CreateTask />
+            <ConfirmTask />
+            <LinkWallet />
+            <DonateToProject />
+            <ClaimReward />
+            <GetTotalRewards />
+            <GetClaimedRewards />
+            <AllProjects />
+            <GetProjectParticipants />
+            <GetWalletByGithub />
+            <GetGithubByWallet />
+            {/* <GoalCreated /> */}
+            </WalletModalProvider>
+          </WalletProvider>
+        </ConnectionProvider>        
       </main>
       <footer className="footer">
         Powered By{" "}

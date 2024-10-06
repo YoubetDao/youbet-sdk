@@ -2,6 +2,7 @@ import { ethers, BaseContractMethod, BaseContract, Result } from "ethers";
 import { SDK } from "../sdk";
 import { formatResult } from "../lib/utils";
 import { GoalInfo, Task } from "../types";
+import { BaseClientModule } from "./baseClientModule";
 
 export interface ViewContract extends BaseContract {
   contractOwner: BaseContractMethod<[], any, string>;
@@ -21,7 +22,7 @@ export interface ViewContract extends BaseContract {
   getWalletByGithub: BaseContractMethod<[string], any, string>;
 }
 
-export class ClientModule {
+export class ClientModule implements BaseClientModule {
   protected _sdk: SDK;
   private _ethContract: ViewContract | null = null;
 
