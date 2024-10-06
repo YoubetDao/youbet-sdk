@@ -5,8 +5,8 @@ import {
   type Task,
 } from "youbet-sdk";
 
-import { openCampusTestOptions } from "./options";
+import { neoTestOptions, openCampusTestOptions } from "./options";
 
-export const sdk = new SDK(openCampusTestOptions);
+export const sdk = new SDK(neoTestOptions);
 
 export { type GoalInfo, type Task, formatResult };
