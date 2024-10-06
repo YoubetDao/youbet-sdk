@@ -28,6 +28,7 @@ import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
 // import { GoalCreated } from './components/sections/GoalCreated'
 import {
   ConnectionProvider,
+  useWallet,
   WalletProvider,
 } from "@solana/wallet-adapter-react";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
@@ -36,6 +37,7 @@ import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { clusterApiUrl } from "@solana/web3.js";
+
 function App() {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = clusterApiUrl(network);

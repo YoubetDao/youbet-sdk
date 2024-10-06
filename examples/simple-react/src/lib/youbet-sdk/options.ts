@@ -1,4 +1,5 @@
 import { SdkCtorOptions } from "youbet-sdk";
+import { Connection } from "@solana/web3.js";
 
 export const lineaTestOptions: SdkCtorOptions = {
   networkOptions: {
@@ -25,6 +26,9 @@ export const solanaOptions: SdkCtorOptions = {
     rpcUrl: "https://api.devnet.solana.com",
     chainId: 0,
   },
-  wallet,
-  connection,
+  // ts-ignore
+  wallet: window.solana,
+  connection: new Connection("https://api.devnet.solana.com", {
+    commitment: "confirmed",
+  }),
 };
