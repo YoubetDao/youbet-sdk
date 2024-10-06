@@ -8,15 +8,15 @@ import { Wallet } from "@coral-xyz/anchor";
 require("dotenv").config();
 const SECONDS = 1000;
 jest.setTimeout(70 * SECONDS);
-
-const authority = Keypair.fromSecretKey(bs58.decode(process.env.AUTHORITY!));
-const project_id = "project_repo#githubid";
-const task_id = "task_repo#githubid";
-const github_id = "github_id";
+const privateKey = "";
+const authority = Keypair.fromSecretKey(bs58.decode(privateKey));
+const project_id = "project_repo#844974701";
+const task_id = "task_repo#844974701";
+const github_id = "844974701";
 
 describe("backend", () => {
   let sdkCtorOptions: SdkCtorOptions = {
-    privateKey: "",
+    privateKey: privateKey,
     networkOptions: {
       contractAddress: "string",
       rpcUrl: "https://api.devnet.solana.com",
@@ -65,21 +65,23 @@ describe("backend", () => {
     console.log(tasks);
   });
 });
+//
+// https://solana.com/developers/courses/onchain-development/intro-to-anchor-frontend
+// import {
+//   useAnchorWallet,
+//   useConnection,
+// } from "@solana/wallet-adapter-react";
+// const { connection } = useConnection();
+// const wallet = useAnchorWallet();
+//
 describe("client", () => {
-  //https://solana.com/developers/courses/onchain-development/intro-to-anchor-frontend
-  // import {
-  //   useAnchorWallet,
-  //   useConnection,
-  // } from "@solana/wallet-adapter-react";
-  // const { connection } = useConnection();
-  // const wallet = useAnchorWallet();
   const connection = new Connection("https://api.devnet.solana.com", {
     commitment: "confirmed",
   });
   const wallet = new Wallet(authority);
 
   let sdkCtorOptions: SdkCtorOptions = {
-    privateKey: "string",
+    privateKey: "",
     networkOptions: {
       contractAddress: "string",
       rpcUrl: "https://api.devnet.solana.com",
@@ -91,6 +93,22 @@ describe("client", () => {
   let sdk = new SDK(sdkCtorOptions);
   let solanaContractModdule = new YoubetSolanaProgramLib(sdk);
 
-  test("donateToProject", async () => {});
-  test("claimReward", async () => {});
+  test("donateToProject", async () => {
+    await solanaContractModdule.donateToProject(project_id, "0.01");
+    let rewardAmount = await solanaContractModdule.getRewardAmount(
+      wallet.publicKey.toBase58()
+    );
+    console.log(rewardAmount);
+  });
+  test("claimReward", async () => {
+    let rewardAmount = await solanaContractModdule.getRewardAmount(
+      wallet.publicKey.toBase58()
+    );
+    console.log(rewardAmount);
+    await solanaContractModdule.claimReward();
+    let rewardAmount1 = await solanaContractModdule.getRewardAmount(
+      wallet.publicKey.toBase58()
+    );
+    console.log(rewardAmount1);
+  });
 });

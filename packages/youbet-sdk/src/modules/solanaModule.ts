@@ -1,4 +1,4 @@
-import { AnchorProvider, Idl, Program, Wallet } from "@coral-xyz/anchor";
+import { AnchorProvider, Idl, Program, Wallet, BN } from "@coral-xyz/anchor";
 import bs58 from "bs58";
 
 import type { YoubetSolanaProgram } from "../lib/idl/youbet_solana_program";
@@ -9,38 +9,49 @@ import {
   Connection,
   Keypair,
   PublicKey,
+  SystemProgram,
   SYSVAR_RENT_PUBKEY,
+  LAMPORTS_PER_SOL,
 } from "@solana/web3.js";
 
-const ADMIN_CONFIG_PREFIX: string = "ADMIN_CONFIG_PREFIX";
+const ADMIN_CONFIG_PREFIX: string = "ADMIN_CONFIG";
 const PROJECT_PREFIX: string = "PROJECT";
 const TASK_PREFIX: string = "TASK";
 const PROJECT_USER_POINT_PREFIX: string = "PROJECT_USER_POINT";
 const WALLET_PREFIX: string = "WALLET";
 const GITHUB_PREFIX: string = "GITHUB";
+const DONATE_POOL_PREFIX: string = "DONATE_POOL";
+const REWARD_PREFIX: string = "REWARD";
 
+type DonateToParams = {
+  account: PublicKey;
+  rewardPda: PublicKey;
+  rewardBump: number;
+  projectUserPointPda: PublicKey;
+  projectUserPointBump: number;
+};
 export class YoubetSolanaProgramLib {
   youbetSolanaProgram: Program<YoubetSolanaProgram>;
   feeAndRentKeypair!: Keypair;
+  wallet!: Wallet;
+  connection: Connection;
 
   constructor(sdk: SDK) {
-    let connection: Connection;
-    let wallet: Wallet;
     if (sdk.sdkOptions.privateKey) {
       this.feeAndRentKeypair = Keypair.fromSecretKey(
         bs58.decode(sdk.sdkOptions.privateKey)
       );
-      wallet = new Wallet(this.feeAndRentKeypair);
-      connection = new Connection(sdk.sdkOptions.networkOptions.rpcUrl, {
+      this.wallet = new Wallet(this.feeAndRentKeypair);
+      this.connection = new Connection(sdk.sdkOptions.networkOptions.rpcUrl, {
         commitment: "confirmed",
       });
     } else {
-      wallet = sdk.sdkOptions.wallet!;
-      connection = sdk.sdkOptions.connection!;
+      this.wallet = sdk.sdkOptions.wallet!;
+      this.connection = sdk.sdkOptions.connection!;
     }
     const provider = new AnchorProvider(
-      connection,
-      wallet,
+      this.connection,
+      this.wallet,
       AnchorProvider.defaultOptions()
     );
     this.youbetSolanaProgram = new Program(
@@ -92,16 +103,32 @@ export class YoubetSolanaProgramLib {
       this.youbetSolanaProgram.programId
     );
   }
+  getDonatePoolPdaAndBump(): [PublicKey, number] {
+    return PublicKey.findProgramAddressSync(
+      [Buffer.from(DONATE_POOL_PREFIX)],
+      this.youbetSolanaProgram.programId
+    );
+  }
+  getRewardPdaAndBump(wallet: PublicKey): [PublicKey, number] {
+    return PublicKey.findProgramAddressSync(
+      [Buffer.from(REWARD_PREFIX), wallet.toBuffer()],
+      this.youbetSolanaProgram.programId
+    );
+  }
+
   async setAdminConfigAccount(
     feeAndRentPayer: Keypair,
     authority: Keypair
   ): Promise<void> {
     const [adminConfig, adminBump] = this.getAdminConfigAccountPdaAndBump();
+    const [donatePoolPda, donatePoolBump] = this.getDonatePoolPdaAndBump();
+
     let initializeAccounts = {
       feeAndRentPayer: feeAndRentPayer.publicKey,
       authority: authority.publicKey,
       adminConfig,
-      systemProgram: new PublicKey("11111111111111111111111111111111"),
+      donatePoolPda,
+      systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
     const tx = await this.youbetSolanaProgram.methods
@@ -126,7 +153,7 @@ export class YoubetSolanaProgramLib {
       feeAndRentPayer: this.feeAndRentKeypair.publicKey,
       task,
       project,
-      systemProgram: new PublicKey("11111111111111111111111111111111"),
+      systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
     const tx = await this.youbetSolanaProgram.methods
@@ -148,11 +175,11 @@ export class YoubetSolanaProgramLib {
     let createProjectAccounts = {
       feeAndRentPayer: this.feeAndRentKeypair.publicKey,
       project,
-      systemProgram: new PublicKey("11111111111111111111111111111111"),
+      systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
     const tx = await this.youbetSolanaProgram.methods
-      .createProject(id, id)
+      .createProject(id, name)
       .accounts(createProjectAccounts)
       .signers([this.feeAndRentKeypair])
       .rpc();
@@ -189,7 +216,7 @@ export class YoubetSolanaProgramLib {
       adminConfig: adminConfig,
       walletAccount,
       githubAccount,
-      systemProgram: new PublicKey("11111111111111111111111111111111"),
+      systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
     const tx = await this.youbetSolanaProgram.methods
@@ -241,7 +268,7 @@ export class YoubetSolanaProgramLib {
       githubAccount,
       walletAccount,
       projectUserPoint,
-      systemProgram: new PublicKey("11111111111111111111111111111111"),
+      systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
 
@@ -271,5 +298,94 @@ export class YoubetSolanaProgramLib {
         walletAccount.toBase58()
       );
     return walletData.completedTasks;
+  }
+
+  async donateToProject(projectId: string, amount: string): Promise<void> {
+    const [donatePoolPda, donatePoolBump] = this.getDonatePoolPdaAndBump();
+    const [project, projectBump] = this.getProjectAccountPdaAndBump(projectId);
+    const projectData = await this.getProject(projectId);
+    const donateAccounts: Array<DonateToParams> = new Array(3).fill(null);
+    for (let i = 0; i < projectData.participaints.length; i++) {
+      const [rewardPda, rewardBump] = this.getRewardPdaAndBump(
+        projectData.participaints[i]
+      );
+      const [projectUserPointPda, projectUserPointBump] =
+        this.getProjectUserPointPdaAndBump(
+          projectId,
+          projectData.participaints[i]
+        );
+      let donateToParams: DonateToParams = {
+        account: projectData.participaints[i],
+        rewardPda,
+        rewardBump,
+        projectUserPointPda,
+        projectUserPointBump,
+      };
+      donateAccounts[i] = donateToParams;
+    }
+
+    let donateProjectAccounts = {
+      feeAndRentPayer: this.wallet.publicKey,
+      project,
+      donatePool: donatePoolPda,
+      projectUserPoint1: donateAccounts[0]?.projectUserPointPda || null,
+      reward1: donateAccounts[0]?.rewardPda || null,
+      projectUserPoint2: donateAccounts[1]?.projectUserPointPda || null,
+      reward2: donateAccounts[1]?.rewardPda || null,
+      projectUserPoint3: donateAccounts[2]?.projectUserPointPda || null,
+      reward3: donateAccounts[2]?.rewardPda || null,
+      systemProgram: SystemProgram.programId,
+      rent: SYSVAR_RENT_PUBKEY,
+    };
+    const tx = await this.youbetSolanaProgram.methods
+      .donateToProject(
+        this.parseSOL(amount),
+        projectId,
+        projectBump,
+        donatePoolBump,
+        donateAccounts[0]?.account || PublicKey.default,
+        donateAccounts[0]?.rewardBump || 255,
+        donateAccounts[0]?.projectUserPointBump || 255,
+        donateAccounts[1]?.account || PublicKey.default,
+        donateAccounts[1]?.rewardBump || 255,
+        donateAccounts[1]?.projectUserPointBump,
+        donateAccounts[2]?.account || PublicKey.default,
+        donateAccounts[2]?.rewardBump || 255,
+        donateAccounts[2]?.projectUserPointBump || 255
+      )
+      .accounts(donateProjectAccounts)
+      .rpc();
+  }
+
+  async getRewardAmount(user: string): Promise<BN> {
+    const wallet = new PublicKey(user);
+    const [rewardPda, rewardBump] = this.getRewardPdaAndBump(wallet);
+    const rewardAccount =
+      await this.youbetSolanaProgram.account.rewardAccount.fetch(rewardPda);
+    return rewardAccount.rewardAmount;
+  }
+
+  async claimReward(): Promise<void> {
+    const [donatePoolPda, donatePoolBump] = this.getDonatePoolPdaAndBump();
+    const [rewardPda, rewardBump] = this.getRewardPdaAndBump(
+      this.wallet.publicKey
+    );
+    let claimRewardAccounts = {
+      feeAndRentPayer: this.wallet.publicKey,
+      donatePoolPda,
+      rewardPda,
+      systemProgram: SystemProgram.programId,
+      rent: SYSVAR_RENT_PUBKEY,
+    };
+    const tx = await this.youbetSolanaProgram.methods
+      .claimReward(donatePoolBump, rewardBump)
+      .accounts(claimRewardAccounts)
+      .rpc();
+  }
+
+  parseSOL(value: string) {
+    let a = Number(value);
+    // Convert the value to a BigInt and multiply by 10^9 (1 billion)
+    return new BN(a * LAMPORTS_PER_SOL);
   }
 }
