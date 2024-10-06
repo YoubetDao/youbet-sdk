@@ -41,17 +41,17 @@ type DonateToParams = {
 
 export class SolanaContractModule implements baseContractModule {
   youbetSolanaProgram: Program<YoubetSolanaProgram>;
-  feeAndRentKeypair!: Keypair;
-  wallet!: any;
+  wallet!: Keypair | any;
   connection: Connection;
 
   constructor(sdk: SDK) {
     if (sdk.sdkOptions.privateKey) {
-      this.feeAndRentKeypair = Keypair.fromSecretKey(
+      this.wallet = Keypair.fromSecretKey(
         bs58.decode(sdk.sdkOptions.privateKey)
       );
+    } else {
+      this.wallet = sdk.sdkOptions.wallet!;
     }
-    this.wallet = sdk.sdkOptions.wallet!;
     this.connection = sdk.sdkOptions.connection!;
 
     const provider = new AnchorProvider(
@@ -183,7 +183,7 @@ export class SolanaContractModule implements baseContractModule {
     const [task, _taskBump] = this.getTaskAccountPdaAndBump(id);
     const [project, projectBump] = this.getProjectAccountPdaAndBump(projectId);
     let createTaskAccounts = {
-      feeAndRentPayer: this.feeAndRentKeypair.publicKey,
+      feeAndRentPayer: this.wallet.publicKey,
       task,
       project,
       systemProgram: SystemProgram.programId,
@@ -192,7 +192,7 @@ export class SolanaContractModule implements baseContractModule {
     const tx = await this.youbetSolanaProgram.methods
       .createTask(id, name, projectId, projectBump)
       .accounts(createTaskAccounts)
-      .signers([this.feeAndRentKeypair])
+
       .rpc();
     console.log("createTask signature", tx);
   }
@@ -206,7 +206,7 @@ export class SolanaContractModule implements baseContractModule {
   async createProject(id: string, name: string): Promise<void> {
     const [project, _projectBump] = this.getProjectAccountPdaAndBump(id);
     let createProjectAccounts = {
-      feeAndRentPayer: this.feeAndRentKeypair.publicKey,
+      feeAndRentPayer: this.wallet.publicKey,
       project,
       systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
@@ -214,7 +214,7 @@ export class SolanaContractModule implements baseContractModule {
     const tx = await this.youbetSolanaProgram.methods
       .createProject(id, name)
       .accounts(createProjectAccounts)
-      .signers([this.feeAndRentKeypair])
+
       .rpc();
     console.log("createProject signature", tx);
   }
@@ -247,7 +247,7 @@ export class SolanaContractModule implements baseContractModule {
       this.getGithubAccountPdaAndBump(github);
 
     let createLinkWalletAccounts = {
-      feeAndRentPayer: this.feeAndRentKeypair.publicKey,
+      feeAndRentPayer: this.wallet.publicKey,
       adminConfig: adminConfig,
       walletAccount,
       githubAccount,
@@ -257,7 +257,7 @@ export class SolanaContractModule implements baseContractModule {
     const tx = await this.youbetSolanaProgram.methods
       .linkWallet(wallet, github, adminBump)
       .accounts(createLinkWalletAccounts)
-      .signers([this.feeAndRentKeypair])
+
       .rpc();
     console.log("linkWallet signature", tx);
   }
@@ -298,7 +298,7 @@ export class SolanaContractModule implements baseContractModule {
     const [projectUserPoint, _projectUserPointBump] =
       this.getProjectUserPointPdaAndBump(taskData.projectId, githubData.wallet);
     const confirmTaskAccounts = {
-      feeAndRentPayer: this.feeAndRentKeypair.publicKey,
+      feeAndRentPayer: this.wallet.publicKey,
       task,
       project,
       githubAccount,
@@ -311,7 +311,7 @@ export class SolanaContractModule implements baseContractModule {
     const tx = await this.youbetSolanaProgram.methods
       .confirmTask(taskId, github, 10, taskBump, githubBump, walletBump)
       .accounts(confirmTaskAccounts)
-      .signers([this.feeAndRentKeypair])
+
       .rpc();
     console.log("confirmTask signature", tx);
   }

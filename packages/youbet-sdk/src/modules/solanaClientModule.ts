@@ -32,11 +32,12 @@ export class SolanaClientModule implements BaseClientModule {
 
   constructor(sdk: SDK) {
     if (sdk.sdkOptions.privateKey) {
-      this.feeAndRentKeypair = Keypair.fromSecretKey(
+      this.wallet = Keypair.fromSecretKey(
         bs58.decode(sdk.sdkOptions.privateKey)
       );
+    } else {
+      this.wallet = sdk.sdkOptions.wallet!;
     }
-    this.wallet = sdk.sdkOptions.wallet!;
     this.connection = sdk.sdkOptions.connection!;
 
     const provider = new AnchorProvider(
