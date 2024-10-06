@@ -1,4 +1,4 @@
-import { AnchorProvider, Idl, Program, Wallet } from "@coral-xyz/anchor";
+import { AnchorProvider, Idl, Program } from "@coral-xyz/anchor";
 import bs58 from "bs58";
 
 import type { YoubetSolanaProgram } from "../lib/idl/youbet_solana_program";
@@ -27,7 +27,7 @@ const REWARD_PREFIX: string = "REWARD";
 export class SolanaClientModule implements BaseClientModule {
   youbetSolanaProgram: Program<YoubetSolanaProgram>;
   feeAndRentKeypair!: Keypair;
-  wallet!: Wallet;
+  wallet!: any;
   connection: Connection;
 
   constructor(sdk: SDK) {
@@ -35,7 +35,7 @@ export class SolanaClientModule implements BaseClientModule {
       this.feeAndRentKeypair = Keypair.fromSecretKey(
         bs58.decode(sdk.sdkOptions.privateKey)
       );
-      this.wallet = new Wallet(this.feeAndRentKeypair);
+      // this.wallet = new Wallet(this.feeAndRentKeypair);
       this.connection = new Connection(sdk.sdkOptions.networkOptions.rpcUrl, {
         commitment: "confirmed",
       });

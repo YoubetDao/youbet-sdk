@@ -37,6 +37,7 @@ import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import "@solana/wallet-adapter-react-ui/styles.css";
 import { clusterApiUrl } from "@solana/web3.js";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 function App() {
   const network = WalletAdapterNetwork.Devnet;
@@ -57,35 +58,36 @@ function App() {
       <main className="main">
         <ConnectionProvider endpoint={endpoint}>
           <WalletProvider wallets={wallets} autoConnect>
-            <WalletModalProvider>       
-            <ContractOwner />
-            <AllGoals />
-            <GoalDetails />
-            <UserGoals />
+            <WalletModalProvider>   
+              <WalletMultiButton />    
+              <ContractOwner />
+              <AllGoals />
+              <GoalDetails />
+              <UserGoals />
 
-            <CreateGoal />
-            <CreateGoalSolo />
-            <ClaimStake />
-            <StakeAndUnlockGoal />
-            <ConfirmTaskCompletion />
-            <SettleGoal />
+              <CreateGoal />
+              <CreateGoalSolo />
+              <ClaimStake />
+              <StakeAndUnlockGoal />
+              <ConfirmTaskCompletion />
+              <SettleGoal />
 
-            <AllTasks />
-            <AllUnconfirmedTasks />
-            <UserPoints />
+              <AllTasks />
+              <AllUnconfirmedTasks />
+              <UserPoints />
 
-            <CreateTask />
-            <ConfirmTask />
-            <LinkWallet />
-            <DonateToProject />
-            <ClaimReward />
-            <GetTotalRewards />
-            <GetClaimedRewards />
-            <AllProjects />
-            <GetProjectParticipants />
-            <GetWalletByGithub />
-            <GetGithubByWallet />
-            {/* <GoalCreated /> */}
+              <CreateTask />
+              <ConfirmTask />
+              <LinkWallet />
+              <DonateToProject />
+              <ClaimReward />
+              <GetTotalRewards />
+              <GetClaimedRewards />
+              <AllProjects />
+              <GetProjectParticipants />
+              <GetWalletByGithub />
+              <GetGithubByWallet />
+              {/* <GoalCreated /> */}
             </WalletModalProvider>
           </WalletProvider>
         </ConnectionProvider>        

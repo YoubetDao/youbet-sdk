@@ -3,7 +3,7 @@ import { Keypair, Connection } from "@solana/web3.js";
 import { SolanaContractModule } from "../src/modules/solanaContractModule";
 import { SdkCtorOptions } from "../src/types/index";
 import { SDK } from "../src/sdk";
-import { Wallet, getProvider } from "@coral-xyz/anchor";
+import { Wallet } from "@coral-xyz/anchor";
 
 require("dotenv").config();
 const SECONDS = 1000;
