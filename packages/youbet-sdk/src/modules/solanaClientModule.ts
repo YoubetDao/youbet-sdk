@@ -233,15 +233,23 @@ export class SolanaClientModule implements BaseClientModule {
   async getClaimedRewards(address: string): Promise<number> {
     const wallet = new PublicKey(address);
     const [rewardPda, _rewardBump] = this.getRewardPdaAndBump(wallet);
-    const rewardAccount =
-      await this.youbetSolanaProgram.account.rewardAccount.fetch(rewardPda);
-    return rewardAccount.accumulatedAmount - rewardAccount.rewardAmount;
+    try {
+      const rewardAccount =
+        await this.youbetSolanaProgram.account.rewardAccount.fetch(rewardPda);
+      return rewardAccount.accumulatedAmount - rewardAccount.rewardAmount;
+    } catch {
+      return 0;
+    }
   }
   async getTotalRewards(address: string): Promise<any> {
     const wallet = new PublicKey(address);
     const [rewardPda, _rewardBump] = this.getRewardPdaAndBump(wallet);
-    const rewardAccount =
-      await this.youbetSolanaProgram.account.rewardAccount.fetch(rewardPda);
-    return rewardAccount.accumulatedAmount;
+    try {
+      const rewardAccount =
+        await this.youbetSolanaProgram.account.rewardAccount.fetch(rewardPda);
+      return rewardAccount.accumulatedAmount;
+    } catch {
+      return 0;
+    }
   }
 }

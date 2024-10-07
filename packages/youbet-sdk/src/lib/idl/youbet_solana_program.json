@@ -1,5 +1,5 @@
 {
-  "address": "AM4cf3KpEB2x1gR6qM9WHwCA4YakbdtCGiWCREii3fxv",
+  "address": "CuuiWq1ATi8XUgnv8tdiYNQKccs3iNw2uz9CDAZeuc15",
   "metadata": {
     "name": "youbet_solana_program",
     "version": "0.1.0",
@@ -320,7 +320,8 @@
               },
               {
                 "kind": "account",
-                "path": "fee_and_rent_payer"
+                "path": "github_account.wallet",
+                "account": "GithubAccount"
               }
             ]
           }

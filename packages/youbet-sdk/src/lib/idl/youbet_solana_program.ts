@@ -5,7 +5,7 @@
  * IDL can be found at `target/idl/youbet_solana_program.json`.
  */
 export type YoubetSolanaProgram = {
-  "address": "AM4cf3KpEB2x1gR6qM9WHwCA4YakbdtCGiWCREii3fxv",
+  "address": "CuuiWq1ATi8XUgnv8tdiYNQKccs3iNw2uz9CDAZeuc15",
   "metadata": {
     "name": "youbetSolanaProgram",
     "version": "0.1.0",
@@ -326,7 +326,8 @@ export type YoubetSolanaProgram = {
               },
               {
                 "kind": "account",
-                "path": "feeAndRentPayer"
+                "path": "github_account.wallet",
+                "account": "githubAccount"
               }
             ]
           }

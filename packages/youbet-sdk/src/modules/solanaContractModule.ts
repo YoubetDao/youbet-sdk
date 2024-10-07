@@ -297,7 +297,11 @@ export class SolanaContractModule implements baseContractModule {
       );
     return githubData.wallet;
   }
-  async confirmTask(taskId: string, github: string): Promise<void> {
+  async confirmTask(
+    taskId: string,
+    github: string,
+    taskPoints: number
+  ): Promise<void> {
     const [task, taskBump] = this.getTaskAccountPdaAndBump(taskId);
     const taskData = await this.youbetSolanaProgram.account.taskAccount.fetch(
       task.toBase58()
@@ -307,13 +311,16 @@ export class SolanaContractModule implements baseContractModule {
       await this.youbetSolanaProgram.account.githubAccount.fetch(
         githubAccount.toBase58()
       );
-    const wallet = new PublicKey(githubData.wallet);
-    const [walletAccount, walletBump] = this.getWalletAccountPdaAndBump(wallet);
+    const [walletAccount, walletBump] = this.getWalletAccountPdaAndBump(
+      githubData.wallet
+    );
+    console.log(githubData.wallet.toBase58());
     const [project, _projectBump] = this.getProjectAccountPdaAndBump(
       taskData.projectId
     );
     const [projectUserPoint, _projectUserPointBump] =
       this.getProjectUserPointPdaAndBump(taskData.projectId, githubData.wallet);
+    const [reward, rewardBump] = this.getRewardPdaAndBump(githubData.wallet);
     const confirmTaskAccounts = {
       feeAndRentPayer: this.wallet.publicKey,
       task,
@@ -321,17 +328,18 @@ export class SolanaContractModule implements baseContractModule {
       githubAccount,
       walletAccount,
       projectUserPoint,
+      reward,
       systemProgram: SystemProgram.programId,
       rent: SYSVAR_RENT_PUBKEY,
     };
 
     const tx = await this.youbetSolanaProgram.methods
-      .confirmTask(taskId, github, 10, taskBump, githubBump, walletBump)
+      .confirmTask(taskId, github, taskPoints, taskBump, githubBump, walletBump)
       .accounts(confirmTaskAccounts)
-
       .rpc();
     console.log("confirmTask signature", tx);
   }
+
   async getUserPoints(user: string): Promise<any> {
     const walletPk = new PublicKey(user);
     const [walletAccount, _walletBump] =
