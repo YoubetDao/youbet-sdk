@@ -1,5 +1,4 @@
 import { AnchorProvider, Idl, Program, BN } from "@coral-xyz/anchor";
-import bs58 from "bs58";
 
 import type { YoubetSolanaProgram } from "../lib/idl/youbet_solana_program";
 import idl from "../lib/idl/youbet_solana_program.json";
@@ -15,6 +14,11 @@ import {
 } from "@solana/web3.js";
 import { baseContractModule } from "./baseContractModule";
 import { GoalInfo } from "../types";
+import { Buffer } from "buffer";
+
+if (typeof window !== "undefined") {
+  window.Buffer = Buffer;
+}
 
 const ADMIN_CONFIG_PREFIX: string = "ADMIN_CONFIG";
 const PROJECT_PREFIX: string = "PROJECT";

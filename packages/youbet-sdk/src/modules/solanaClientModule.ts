@@ -1,5 +1,4 @@
 import { AnchorProvider, Idl, Program } from "@coral-xyz/anchor";
-import bs58 from "bs58";
 
 import type { YoubetSolanaProgram } from "../lib/idl/youbet_solana_program";
 import idl from "../lib/idl/youbet_solana_program.json";
