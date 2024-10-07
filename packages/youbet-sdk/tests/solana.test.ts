@@ -37,7 +37,7 @@ describe("backend", () => {
     console.log(adminConfigData);
   });
   test("setProject", async () => {
-    let res = await solanaContractModdule.createProject(project_id, project_id);
+    await solanaContractModdule.createProject(project_id, project_id);
     let project = await solanaContractModdule.getProject(project_id);
     console.log(project);
   });
