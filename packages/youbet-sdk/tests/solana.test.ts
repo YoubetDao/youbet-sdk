@@ -1,5 +1,5 @@
 import bs58 from "bs58";
-import { Keypair, Connection } from "@solana/web3.js";
+import { Keypair, Connection, PublicKey } from "@solana/web3.js";
 import { SolanaContractModule } from "../src/modules/solanaContractModule";
 import { SdkCtorOptions } from "../src/types/index";
 import { SDK } from "../src/sdk";
@@ -33,6 +33,14 @@ describe("backend", () => {
 
   test("setAdmin", async () => {
     await solanaContractModdule.setAdminConfigAccount(authority, authority);
+    let adminConfigData = await solanaContractModdule.getAdminConfigAccount();
+    console.log(adminConfigData);
+  });
+  test("changeAdmin", async () => {
+    await solanaContractModdule.changeAdminConfigAccount(
+      authority,
+      new PublicKey("Fcc9gAaqX5esiwziPLtG4J47graU8py8dKn8hRx14fme")
+    );
     let adminConfigData = await solanaContractModdule.getAdminConfigAccount();
     console.log(adminConfigData);
   });

@@ -169,6 +169,25 @@ export class SolanaContractModule implements baseContractModule {
       .rpc();
     console.log("setAdminConfigAccount signature", tx);
   }
+
+  async changeAdminConfigAccount(
+    admin: Keypair,
+    newAdmin: PublicKey
+  ): Promise<void> {
+    const [adminConfig, _adminBump] = this.getAdminConfigAccountPdaAndBump();
+    let changeAdminConfigAccounts = {
+      admin: admin.publicKey,
+      adminConfig,
+      systemProgram: SystemProgram.programId,
+      rent: SYSVAR_RENT_PUBKEY,
+    };
+    const tx = await this.youbetSolanaProgram.methods
+      .changeAdminConfig(newAdmin)
+      .accounts(changeAdminConfigAccounts)
+      .signers([admin])
+      .rpc();
+    console.log("changeAdminConfigAccount signature", tx);
+  }
   async getAdminConfigAccount(): Promise<any> {
     const [adminConfig, _adminBump] = this.getAdminConfigAccountPdaAndBump();
     const adminConfigData =

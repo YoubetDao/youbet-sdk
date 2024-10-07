@@ -14,6 +14,65 @@ export type YoubetSolanaProgram = {
   },
   "instructions": [
     {
+      "name": "changeAdminConfig",
+      "discriminator": [
+        196,
+        205,
+        160,
+        9,
+        93,
+        88,
+        4,
+        65
+      ],
+      "accounts": [
+        {
+          "name": "admin",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "adminConfig",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  65,
+                  68,
+                  77,
+                  73,
+                  78,
+                  95,
+                  67,
+                  79,
+                  78,
+                  70,
+                  73,
+                  71
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "systemProgram",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "newAdmin",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
       "name": "claimReward",
       "discriminator": [
         149,
