@@ -1,6 +1,6 @@
 {
   "name": "youbet-sdk",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "Awesome SDK it is.",
   "main": "./dist/cjs/main.js",
   "module": "./dist/esm/index.js",
@@ -11,6 +11,7 @@
   },
   "types": "./dist/esm/main.d.ts",
   "scripts": {
+    "test": "jest tests/solana.test.ts",
     "clean": "rm -rf dist build package",
     "build": "tsc -p tsconfig.cjs.json && tsc -p tsconfig.esm.json",
     "build-watch": "tsc -p tsconfig.esm.json --watch",
@@ -23,10 +24,19 @@
   "author": "youbetdao@gmail.com",
   "license": "ISC",
   "dependencies": {
-    "ethers": "^6.13.1"
+    "@coral-xyz/anchor": "0.30.1",
+    "@solana/web3.js": "1.95.3",
+    "bs58": "6.0.0",
+    "buffer": "^6.0.3",
+    "ethers": "^6.13.1",
+    "tweetnacl": "^1.0.3"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "@types/node": "^20.14.8",
+    "dotenv": "^16.4.5",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.4",
     "typescript": "^5.5.2"
   }
 }

@@ -1,12 +1,7 @@
-import {
-  SDK,
-  type GoalInfo,
-  formatResult,
-  type Task,
-} from "youbet-sdk";
+import { SDK, type GoalInfo, formatResult, type Task } from "youbet-sdk";
 
-import { openCampusTestOptions } from "./options";
+import { solanaOptions } from "./options";
 
-export const sdk = new SDK(openCampusTestOptions);
+export const sdk = new SDK(solanaOptions);
 
 export { type GoalInfo, type Task, formatResult };

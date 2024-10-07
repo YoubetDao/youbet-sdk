@@ -9,7 +9,7 @@
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    // "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "importHelpers": false,
@@ -22,6 +22,7 @@
     "outDir": "./dist/",
     "types": [
       "node",
+      "jest"
     ],
     "lib": [
       "ES6",

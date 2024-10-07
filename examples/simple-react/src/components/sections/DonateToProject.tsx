@@ -7,7 +7,7 @@ export function DonateToProject() {
   const [projectId, setProjectId] = useState("829893564");
 
   const tryMe = async () => {
-    const taskInfo = await sdk.contract.donateToProject(projectId, "0.0003");
+    const taskInfo = await sdk.contract.donateToProject(projectId, "0.1");
     console.log(taskInfo);
   };
 

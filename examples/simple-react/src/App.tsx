@@ -26,61 +26,83 @@ import { GetProjectParticipants } from "./components/sections/GetProjectParticip
 import { GetWalletByGithub } from "./components/sections/GetWalletByGithub";
 import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
 // import { GoalCreated } from './components/sections/GoalCreated'
+import {
+  ConnectionProvider,
+  WalletProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+
+import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import "@solana/wallet-adapter-react-ui/styles.css";
+import { clusterApiUrl } from "@solana/web3.js";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 function App() {
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = clusterApiUrl(network);
+  const wallets = [ new PhantomWalletAdapter()];
   return (
-    <>
-      <header className="header">
-        <img
-          className="logo"
-          src="/logo.png"
-          alt="logo"
-          width={28}
-          height={28}
-        />
-        <span>YouBet SDK</span>
-      </header>
-      <main className="main">
-        <ContractOwner />
-        <AllGoals />
-        <GoalDetails />
-        <UserGoals />
+    <ConnectionProvider endpoint={endpoint}>
+      <WalletProvider wallets={wallets} autoConnect>
+        <WalletModalProvider>   
+          <header className="header">
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <img
+                className="logo"
+                src="/logo.png"
+                alt="logo"
+                width={28}
+                height={28}
+              />
+              <span>YouBet SDK</span>
+            </div>
+            
+            <WalletMultiButton />    
+          </header>
+          <main className="main">
+              <ContractOwner />
+              <AllGoals />
+              <GoalDetails />
+              <UserGoals />
 
-        <CreateGoal />
-        <CreateGoalSolo />
-        <ClaimStake />
-        <StakeAndUnlockGoal />
-        <ConfirmTaskCompletion />
-        <SettleGoal />
+              <CreateGoal />
+              <CreateGoalSolo />
+              <ClaimStake />
+              <StakeAndUnlockGoal />
+              <ConfirmTaskCompletion />
+              <SettleGoal />
 
-        <AllTasks />
-        <AllUnconfirmedTasks />
-        <UserPoints />
+              <AllTasks />
+              <AllUnconfirmedTasks />
+              <UserPoints />
 
-        <CreateTask />
-        <ConfirmTask />
-        <LinkWallet />
-        <DonateToProject />
-        <ClaimReward />
-        <GetTotalRewards />
-        <GetClaimedRewards />
-        <AllProjects />
-        <GetProjectParticipants />
-        <GetWalletByGithub />
-        <GetGithubByWallet />
-        {/* <GoalCreated /> */}
-      </main>
-      <footer className="footer">
-        Powered By{" "}
-        <a
-          href="https://youbetdao.github.io/"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          YouBet
-        </a>
-      </footer>
-    </>
+              <CreateTask />
+              <ConfirmTask />
+              <LinkWallet />
+              <DonateToProject />
+              <ClaimReward />
+              <GetTotalRewards />
+              <GetClaimedRewards />
+              <AllProjects />
+              <GetProjectParticipants />
+              <GetWalletByGithub />
+              <GetGithubByWallet />
+              {/* <GoalCreated /> */}       
+          </main>
+          <footer className="footer">
+            Powered By{" "}
+            <a
+              href="https://youbetdao.github.io/"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              YouBet
+            </a>
+          </footer>
+        </WalletModalProvider>
+      </WalletProvider>
+    </ConnectionProvider> 
   );
 }
 
