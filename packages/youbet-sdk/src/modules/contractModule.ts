@@ -116,6 +116,12 @@ export class ContractModule {
     await tx.wait();
   }
 
+  async createAndConfirmTask(taskId: string, name: string, projectId: string, github: string, taskPoints: number): Promise<void> {
+    const contract = await this._getContract();
+    const tx = await contract.createAndConfirmTask(taskId, name, projectId, github, taskPoints);
+    await tx.wait();
+  }
+
   async claimReward(): Promise<void> {
     const contract = await this._getContract();
     const tx = await contract.claimReward();

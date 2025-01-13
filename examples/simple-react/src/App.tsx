@@ -26,6 +26,7 @@ import { GetProjectParticipants } from "./components/sections/GetProjectParticip
 import { GetWalletByGithub } from "./components/sections/GetWalletByGithub";
 import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
 import { GetTask } from "./components/sections/GetTask";
+import { CreateAndConfirmTask } from "./components/sections/CreateAndConfirmTask";
 // import { GoalCreated } from './components/sections/GoalCreated'
 
 function App() {
@@ -43,22 +44,13 @@ function App() {
 			</header>
 			<main className="main">
 				<ContractOwner />
-				<AllGoals />
-				<GoalDetails />
-				<UserGoals />
-
-				<CreateGoal />
-				<CreateGoalSolo />
-				<ClaimStake />
-				<StakeAndUnlockGoal />
-				<ConfirmTaskCompletion />
-				<SettleGoal />
 
 				<AllTasks />
 				<AllUnconfirmedTasks />
 				<GetTask />
 				<UserPoints />
 
+				<CreateAndConfirmTask />
 				<CreateTask />
 				<ConfirmTask />
 				<LinkWallet />
