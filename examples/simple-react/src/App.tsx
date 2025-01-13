@@ -25,63 +25,65 @@ import { AllProjects } from "./components/sections/AllProjects";
 import { GetProjectParticipants } from "./components/sections/GetProjectParticipants";
 import { GetWalletByGithub } from "./components/sections/GetWalletByGithub";
 import { GetGithubByWallet } from "./components/sections/GetGithubByWallet";
+import { GetTask } from "./components/sections/GetTask";
 // import { GoalCreated } from './components/sections/GoalCreated'
 
 function App() {
-  return (
-    <>
-      <header className="header">
-        <img
-          className="logo"
-          src="/logo.png"
-          alt="logo"
-          width={28}
-          height={28}
-        />
-        <span>YouBet SDK</span>
-      </header>
-      <main className="main">
-        <ContractOwner />
-        <AllGoals />
-        <GoalDetails />
-        <UserGoals />
+	return (
+		<>
+			<header className="header">
+				<img
+					className="logo"
+					src="/logo.png"
+					alt="logo"
+					width={28}
+					height={28}
+				/>
+				<span>YouBet SDK</span>
+			</header>
+			<main className="main">
+				<ContractOwner />
+				<AllGoals />
+				<GoalDetails />
+				<UserGoals />
 
-        <CreateGoal />
-        <CreateGoalSolo />
-        <ClaimStake />
-        <StakeAndUnlockGoal />
-        <ConfirmTaskCompletion />
-        <SettleGoal />
+				<CreateGoal />
+				<CreateGoalSolo />
+				<ClaimStake />
+				<StakeAndUnlockGoal />
+				<ConfirmTaskCompletion />
+				<SettleGoal />
 
-        <AllTasks />
-        <AllUnconfirmedTasks />
-        <UserPoints />
+				<AllTasks />
+				<AllUnconfirmedTasks />
+				<GetTask />
+				<UserPoints />
 
-        <CreateTask />
-        <ConfirmTask />
-        <LinkWallet />
-        <DonateToProject />
-        <ClaimReward />
-        <GetTotalRewards />
-        <GetClaimedRewards />
-        <AllProjects />
-        <GetProjectParticipants />
-        <GetWalletByGithub />
-        <GetGithubByWallet />
-        {/* <GoalCreated /> */}
-      </main>
-      <footer className="footer">
-        Powered By{" "}
-        <a
-          href="https://youbetdao.github.io/"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
-          YouBet
-        </a>
-      </footer>
-    </>
-  );
+				<CreateTask />
+				<ConfirmTask />
+				<LinkWallet />
+				<DonateToProject />
+				<ClaimReward />
+				<GetTotalRewards />
+				<GetClaimedRewards />
+				<AllProjects />
+				<GetProjectParticipants />
+				<GetWalletByGithub />
+				<GetGithubByWallet />
+				{/* <GoalCreated /> */}
+			</main>
+			<footer className="footer">
+				Powered By{" "}
+				<a
+					href="https://youbetdao.github.io/"
+					target="_blank"
+					rel="noreferrer noopener"
+				>
+					YouBet
+				</a>
+			</footer>
+		</>
+	);
 }
 
 export default App;
